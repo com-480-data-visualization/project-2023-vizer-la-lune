@@ -2,9 +2,9 @@
 
 | Student's name | SCIPER |
 | -------------- | ------ |
-| | |
-| | |
-| | |
+| Linda Delacombaz | 288415 |
+| Vincent Flattot | 352197 |
+| Yann Cretton | 274709 |
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
