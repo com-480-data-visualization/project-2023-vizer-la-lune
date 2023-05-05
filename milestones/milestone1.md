@@ -42,7 +42,7 @@ We hope to bring a new way of looking at emergency services for lambda people. B
 
 ## Exploratory Data Analysis
 
-You can find the full code and graphics of the EDA in this [notebook](../milestone_1.ipynb).
+You can find the full code and graphics of the EDA in this [notebook](milestone_1.ipynb).
 
 For our EDA, we followed some classical steps : 
 
