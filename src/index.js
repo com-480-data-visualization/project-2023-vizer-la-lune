@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import { FullPage } from "./components/FullPage/FullPage";
 import { AnExampleOfBarChart } from "./components/AnExampleOfBarChart/AnExampleOfBarChart";
 const data = [
@@ -38,6 +37,6 @@ const data = [
 const root = ReactDOM.createRoot( document.getElementById( "root" ) );
 root.render(
     <React.StrictMode>
-        <FullPage slides={[ { "key": 1, "title": "Page 1", "color": "#7fff00", "content": <AnExampleOfBarChart data={data}/> }, { "key": 2, "title": "Page 2", "color": "#7fff00", "content": <h3>Page 2</h3> }, { "key": 3, "title": "Page 3", "color": "#7fff00", "content": <h3>Page 3</h3> } ]}/>
+        <FullPage slides={[ { "key": 1, "title": "Page 1", "color": "#7fff00", "content": <div><h3>Introduction</h3><p>An introducing text for our amazing project about 911 calls</p></div> }, { "key": 2, "title": "Page 2", "color": "#7fff00", "content": <AnExampleOfBarChart data={data}/> }, { "key": 3, "title": "Page 3", "color": "#7fff00", "content": <AnExampleOfBarChart data={data}/> }, { "key": 4, "title": "Page 4", "color": "#7fff00", "content": <AnExampleOfBarChart data={data}/> } ]}/>
     </React.StrictMode>,
 );
