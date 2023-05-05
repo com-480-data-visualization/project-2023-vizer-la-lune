@@ -13,8 +13,14 @@
 ### Milestone 1
 Link to [Milestone 1](/milestones/milestone1.md)
 
+- Introduction to the dataset
+- Problematic 
+- Exploratory Data Analysis
+
 ### Milestone 2
 Link to [Milestone 2](https://github.com/com-480-data-visualization/project-2023-vizer-la-lune/blob/master/milestones/milestone_2/Milestone_2.pdf)
+
+- First visualization ideas and sketches
 
 ## Setup
 ### Required installation
