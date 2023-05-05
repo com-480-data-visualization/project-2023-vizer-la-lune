@@ -1,31 +1,38 @@
 import React from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 import "./FullPage.css";
-const anchors = [ "firstPage", "secondPage", "thirdPage" ];
+import PropTypes from "prop-types";
 
-const FullPage = () => {
+export const FullPage = ( { slides } ) => {
+    const getSlidesAsSections = () => {
+        return slides.map( ( slide ) => {
+            return <div className="section" key={slide.key}>{slide.content}</div>;
+        } );
+    };
+    const getSectionsTitles = () =>{
+        return slides.map( ( component ) => {
+            return component.title;} );
+    };
+
+    const getSectionsColors = () => {
+        return slides.map( ( component ) => {
+            return component.color;} );
+    };
     return (
         <ReactFullpage
-            anchors={anchors}
+            licenseKey="gplv3-license"
             navigation
-            navigationTooltips={anchors}
+            navigationTooltips={getSectionsTitles()}
             navigat
-            sectionsColor={[ "#7fff00", "#00ffff", "#29ab87" ]}
-            onLeave={( origin, destination, direction ) => {
-                console.log( "onLeave event", { origin, destination, direction } );
-            }}
+            sectionsColor={getSectionsColors()}
             render={( { state, fullpageApi } ) => {
-                console.log( "render prop change", state, fullpageApi );
-
                 return (
                     <div>
-                        <div className="section"><h3>Section 1</h3></div>
-                        <div className="section"><h3>Section 2</h3></div>
-                        <div className="section"><h3>Section 3</h3></div>
+                        {getSlidesAsSections()}
                     </div>
                 );
             }}
         />
     );
 };
-export default FullPage;
+FullPage.propTypes = { slides: PropTypes.arrayOf( { key: PropTypes.number, title: PropTypes.string, color: PropTypes.string, content: PropTypes.component } ) };
