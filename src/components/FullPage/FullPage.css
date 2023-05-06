@@ -12,11 +12,15 @@ body {
   #section1 {
     color: #fff;
   }
-  .section{
+  .section {
     height: 100vh;
     
   }
   
   .fp-section {
     text-align: center;
+  }
+
+  .credits {
+    height:125vh;;
   }

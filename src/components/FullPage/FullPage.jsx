@@ -4,9 +4,9 @@ import "./FullPage.css";
 import PropTypes from "prop-types";
 
 export const FullPage = ( { slides } ) => {
-    const getSlidesAsSections = () => {
+    const getSlidesContent = () => {
         return slides.map( ( slide ) => {
-            return <div className="section" key={slide.key}>{slide.content}</div>;
+            return slide.content;
         } );
     };
     const getSectionsTitles = () =>{
@@ -28,7 +28,7 @@ export const FullPage = ( { slides } ) => {
             render={( { state, fullpageApi } ) => {
                 return (
                     <div>
-                        {getSlidesAsSections()}
+                        {getSlidesContent()}
                     </div>
                 );
             }}
