@@ -37,4 +37,4 @@ clean_calls_data = clean_calls_data[(clean_calls_data.timeStamp >= "2016-01-01 0
 clean_calls_data = clean_calls_data[(clean_calls_data.timeStamp <= "2020-06-28 00:00:00")]
 
 #creation of a clean dataset with all the content
-clean_calls_data.to_csv("./data/data_files/clean_data/clean_calls.csv")
+clean_calls_data.to_csv("./data/data_files/clean_data/clean_calls.zip", compression="zip")

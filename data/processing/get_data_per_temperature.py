@@ -15,7 +15,7 @@ def approximateHour(date):
 
 def getCallsData():
     calls_data = pd.read_csv(
-        filepath_or_buffer = "./data/data_files/clean_data/clean_calls.csv",
+        filepath_or_buffer = "./data/data_files/clean_data/clean_calls.zip",
         header = 0,
         names = ["lat","lng","desc","zip","title","timeStamp","twp","addr","e","group","year","zip_initial"],
         dtype = {
