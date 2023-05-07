@@ -34,7 +34,7 @@ const data = [
     { year: 2016, efficiency: 37.7, sales: 6873000 },
     { year: 2017, efficiency: 39.4, sales: 6081000 },
 ];
-
+//A modification
 export const TemperatureSlide = () => {
 
     return (
