@@ -4,7 +4,7 @@ import pandas as pd
 dateparse = lambda x: datetime.datetime.strptime(x,'%Y-%m-%d %H:%M:%S')
 
 calls_data = pd.read_csv(
-    filepath_or_buffer = "./data/data_files/archive.zip",
+    filepath_or_buffer = "./data/data_files/raw_data/archive.zip",
     header = 0,
     names = ['lat', 'lng', 'desc', 'zip', 'title', 'timeStamp', 'twp', 'addr', 'e'],
     dtype = {
@@ -37,8 +37,4 @@ clean_calls_data = clean_calls_data[(clean_calls_data.timeStamp >= "2016-01-01 0
 clean_calls_data = clean_calls_data[(clean_calls_data.timeStamp <= "2020-06-28 00:00:00")]
 
 #creation of a clean dataset with all the content
-#clean_calls_data.to_csv("./data/data_files/clean_calls.csv")
-
-#creation of a clean dataset for temperature analysis 
-clean_calls_for_temp_analysis = clean_calls_data[['timeStamp',"title"]]
-#clean_calls_for_temp_analysis.to_csv("./data/data_files/clean_calls_for_temp_analysis.csv")
+clean_calls_data.to_csv("./data/data_files/clean_data/clean_calls.csv")
