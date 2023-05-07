@@ -13,20 +13,26 @@ def approximateHour(date):
         return datetime.datetime(year, month, day, hour,0,0) + datetime.timedelta(hours=1)
     return datetime.datetime(year, month, day, hour,0,0)
 
-def getCallDataWithTemperature():
+def getCallsData():
     calls_data = pd.read_csv(
-        filepath_or_buffer = "./data/data_files/clean_calls_for_temp_analysis.csv",
+        filepath_or_buffer = "./data/data_files/clean_data/clean_calls.csv",
         header = 0,
-        names = ["timeStamp", "title"],
-        dtype = {'title':str, 'timeStamp':str}, 
+        names = ["lat","lng","desc","zip","title","timeStamp","twp","addr","e","group","year","zip_initial"],
+        dtype = {
+        'lat':str,'lng':str,'desc':str, 'zip':str,
+        'title':str, 'timeStamp':str, 'twp':str, 'addr':str, 'e':int,
+        'group':str,"year":int,'zip_initial':int
+        }, 
         parse_dates = ['timeStamp'],
         date_parser = call_date_parse
         )
+    only_needed_columns = calls_data.loc[:,['timeStamp',"title"]]
+    only_needed_columns["timeStamp"] = only_needed_columns["timeStamp"].apply(approximateHour)
+    return only_needed_columns
 
-    calls_data["timeStamp"] = calls_data["timeStamp"].apply(approximateHour)
-
+def getTemperatureData():
     temperature_data = pd.read_csv(
-        filepath_or_buffer = "./data/data_files/temperatures.csv",
+        filepath_or_buffer = "./data/data_files/raw_data/temperatures.csv",
         delimiter=";",
         header = 0,
         names = ["date","hour","temperature","condition"],
@@ -36,7 +42,12 @@ def getCallDataWithTemperature():
         )
 
     temperature_data["timeStamp"] = temperature_data["date"] + temperature_data["hour"].apply(lambda x: datetime.timedelta(hours = int(x)))
-    temperature_data = temperature_data.drop(["date", "hour"], axis=1)
+    only_needed_data = temperature_data.drop(["date", "hour"], axis=1)
+    return only_needed_data
+
+def mergeCallDataWithTemperature():
+    calls_data = getCallsData()
+    temperature_data = getTemperatureData()
 
     calls_data_with_temperature = calls_data.merge(temperature_data,on=["timeStamp", "timeStamp"],how="left")
     return calls_data_with_temperature
@@ -48,11 +59,11 @@ def fillUnknownTemperatureAndConditionWithClosestKnown(df):
     return df
 
 
-def getStatsPerTemperatureAndPerTitle(df):
-    return df.groupby(["temperature","title"]).size()
+def getNumberOfCallPerTemperatureAndPerTitle(df):
+    return df.groupby(["temperature","title"]).size().to_frame('calls_count')
+     
+data_with_temperature = mergeCallDataWithTemperature()
+data_with_temperature_full = fillUnknownTemperatureAndConditionWithClosestKnown(data_with_temperature)
 
-data_with_temperature = getCallDataWithTemperature()
-data_with_temperature_clean = fillUnknownTemperatureAndConditionWithClosestKnown(data_with_temperature)
-
-stats_df = getStatsPerTemperatureAndPerTitle(data_with_temperature_clean)
-stats_df.to_csv("./data/data_files/calls_per_title_per_temperature.csv")
+stats_df = getNumberOfCallPerTemperatureAndPerTitle(data_with_temperature_full)
+stats_df.to_csv("./data/data_files/clean_data/data_per_temperature/calls_per_title_per_temperature.csv")
