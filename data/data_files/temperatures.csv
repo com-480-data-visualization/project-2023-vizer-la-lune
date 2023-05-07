@@ -12458,7 +12458,7 @@ date;hour;temperature(Celsius degree);condition
 23/06/2016;18;25;Cloudy
 23/06/2016;19;25;Cloudy
 23/06/2016;20;25;Cloudy
-23/06/2016;21;25;N/A
+23/06/2016;21;25;Cloudy
 23/06/2016;22;24;Cloudy
 23/06/2016;23;23;Cloudy
 24/06/2016;1;23;Cloudy
@@ -23440,7 +23440,7 @@ date;hour;temperature(Celsius degree);condition
 14/10/2017;22;18;Cloudy
 14/10/2017;23;18;Cloudy
 15/10/2017;1;18;Cloudy
-15/10/2017;2;18;N/A
+15/10/2017;2;18;Cloudy
 15/10/2017;3;17;Cloudy
 15/10/2017;4;17;Cloudy
 15/10/2017;5;17;Cloudy
@@ -29268,7 +29268,7 @@ date;hour;temperature(Celsius degree);condition
 24/06/2018;6;22;Fair
 24/06/2018;7;22;Mostly Cloudy
 24/06/2018;8;23;Mostly Cloudy
-24/06/2018;9;-17;Fair
+24/06/2018;9;24;Fair
 24/06/2018;10;26;Mostly Cloudy
 24/06/2018;11;28;Mostly Cloudy
 24/06/2018;12;31;Mostly Cloudy
@@ -32492,7 +32492,7 @@ date;hour;temperature(Celsius degree);condition
 11/11/2018;17;7;Fair
 11/11/2018;18;6;Fair
 11/11/2018;19;5;Fair
-11/11/2018;20;5;N/A
+11/11/2018;20;5;Fair
 11/11/2018;21;4;Fair
 11/11/2018;22;4;Fair
 11/11/2018;23;2;Fair
@@ -40489,7 +40489,7 @@ date;hour;temperature(Celsius degree);condition
 23/10/2019;19;15;Fair
 23/10/2019;20;13;Fair
 23/10/2019;21;12;Fair
-23/10/2019;22;-17;N/A
+23/10/2019;22;12;Fair
 23/10/2019;23;10;Fair
 24/10/2019;1;9;Fair
 24/10/2019;2;8;Fair
