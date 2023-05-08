@@ -1,6 +1,5 @@
 import React from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
-import "./FullPage.css";
 import PropTypes from "prop-types";
 
 export const FullPage = ( { slides } ) => {
@@ -25,7 +24,7 @@ export const FullPage = ( { slides } ) => {
             navigationTooltips={getSectionsTitles()}
             navigat
             sectionsColor={getSectionsColors()}
-            render={( { state, fullpageApi } ) => {
+            render={() => {
                 return (
                     <div>
                         {getSlidesContent()}
