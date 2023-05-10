@@ -40,11 +40,19 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                 .append( "rect" )
                 .attr( "x", d => { return x( d.title ); } )
                 .attr( "width", x.bandwidth() )
-                .attr( "fill", "blue" )
+                .attr( "fill", "black" )
             // no bar at the beginning thus:
+                .attr( "height", d => { return height - y( 0 ); } ) // always equal to 0
+                .attr( "y", d =>{ return y( 0 ); } )
+                .attr( "transform", "translate(" + margin.left + "," + height / 20 + ")" );
+              
+            // Animation
+            svg.selectAll( "rect" )
+                .transition()
+                .duration( 800 )
                 .attr( "y", d => { return y( d.calls_count ); } )
                 .attr( "height", d => { return height - y( d.calls_count ); } )
-                .attr( "transform", "translate(" + margin.left + "," + height / 20 + ")" );
+                .delay( ( d, i ) => { return ( i * 100 );} ); 
 
         },
         [ data.length ]
