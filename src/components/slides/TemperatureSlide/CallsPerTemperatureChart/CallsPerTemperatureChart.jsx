@@ -3,15 +3,11 @@ import { useD3 } from "../../../../hook/useD3";
 import * as d3 from "d3";
 import PropTypes from "prop-types";
 import "./CallsPerTemperatureChart.css";
+import { Tooltip } from "../Tooltip/Tooltip";
+import { fillAndDisplayTootlip, moveTooltip, hideTooltip } from "./utils.js";
 
 
 export const CallsPerTemperatureChart = ( { data } ) => {
-
-    const computeTooltipSize = ( content ) => {
-        var size = content.length;
-        var tooltipSize = size * 11 + 40;
-        return tooltipSize;
-    };
 
     const ref = useD3(
         ( svg ) => {
@@ -26,7 +22,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                 .range( [ 0, width ] )
                 .padding( 0.2 );
 
-            const y = d3
+            var y = d3
                 .scaleLinear()
                 .domain( [ 0, d3.max( data, ( d ) => d.calls_count ) ] )
                 .rangeRound( [ height, margin.top ] );
@@ -34,9 +30,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             svg.append( "g" )
                 .call( d3.axisBottom( x ) )
                 .attr( "transform", "translate(" + margin.left + "," + ( height + height / 20 ) + ")" )
-                .selectAll( "text" )
-                .attr( "transform", "translate(-10,0)rotate(-45)" )
-                .style( "text-anchor", "end" );
+                .selectAll( "text" );
 
             svg.append( "g" )
                 .call( d3.axisLeft( y ) )
@@ -44,22 +38,17 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             
                 
             var tooltip = d3.select( ".tooltip" );
-            // Three function that change the tooltip when user hover / move / leave a cell
             const mouseover = ( event, data ) => {
-                tooltip.style( "visibility", "visible" ); 
-                var title = data.title.toString();
-                var callCount = data.calls_count;
-                var tooltipSize = computeTooltipSize( title );
-                tooltip.html( "Type: " + title + "<br/> Value: " + callCount );
-                tooltip.style( "width", tooltipSize + "px" );
+                fillAndDisplayTootlip( tooltip, data );
+            };
+            const mousemove = ( event ) =>{
+                moveTooltip( tooltip, event );
+            };
+            const mouseleave = ( ) =>{
+                hideTooltip( tooltip );
+            };
 
-            };
-            const mousemove = ( event, d ) =>{
-                tooltip.style( "top", ( event.pageY - 790 ) + "px" ).style( "left", ( event.pageX - 160 ) + "px" );
-            };
-            const mouseleave = ( event, d ) =>{
-                tooltip.style( "visibility", "hidden" );
-            };
+
             svg.selectAll( "mybar" )
                 .data( data )
                 .enter()
@@ -104,7 +93,8 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                     <g className="plot-area" />
                 </svg>
             </div>
-            <div className="tooltip">{""}</div>
+            <Tooltip></Tooltip>
+            
         </div>
     );
 };

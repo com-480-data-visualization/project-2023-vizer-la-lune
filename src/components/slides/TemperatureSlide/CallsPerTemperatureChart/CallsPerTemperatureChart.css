@@ -3,19 +3,6 @@
     width: 80%;
 }
 
-.tooltip{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white ;
-    border: solid ;
-    border-width:1px;
-    border-radius: 5px;
-    padding: 10px;
-    position: relative;
-    visibility: hidden;
-    width:10px
-}
 .chart_content{
     height:100%;
     width: 100%;
