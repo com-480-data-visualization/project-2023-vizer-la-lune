@@ -34,6 +34,10 @@ export const TemperatureSlide = () => {
     return (
         <Slide title="Temperature Slide">
             <CallsPerTemperatureChart data={dataToDisplay} />
+            <button onClick={()=>{changeData( "13.0" );}}> 13</button>
+            <button onClick={()=>{changeData( "15.0" );}}>15</button>
+            <button onClick={()=>{changeData( "23.0" );}}>23</button>
+            <button onClick={()=>{changeData( "-2.0" );}}>-2</button>
         </Slide>
     );
 };
