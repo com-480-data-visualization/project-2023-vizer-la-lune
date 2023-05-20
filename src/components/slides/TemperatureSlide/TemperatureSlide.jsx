@@ -7,6 +7,8 @@ import { Slide } from "../Slide/Slide";
 
 export const TemperatureSlide = () => {
     const [ data, setData ] = useState( [] );
+    const [ dataToDisplay, setDataToDisplay ] = useState( [] );
+    const [ colorToDisplay, setColorToDisplay ] = useState( "white" );
 
     
     useEffect( ( ) => {
@@ -14,19 +16,27 @@ export const TemperatureSlide = () => {
             download: true,
             header: true,
             skipEmptyLines: true,
-            complete: ( results ) => { setData( results.data ); },
-          
+            complete: ( results ) => { setData( results.data );setFirstDataForDisplay(); },
         } );
     }, [] );
 
-    const getDataForDisplay = () => {
-        //Logic to get good data must be dealt with here in future
-        return data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
+    const setFirstDataForDisplay = () => {
+        const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
+        setDataToDisplay( baseData );
+    };
+    const changeData = ( temperature, color ) =>{
+        const temperatureData = data
+            .filter( d => d.temperature == temperature )
+            .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
+            .sort( ( d1, d2 ) => ( d1.calls_count - d2.calls_count ) )
+            .reverse();
+        setDataToDisplay( temperatureData.slice( 1, 10 ) );
+        setColorToDisplay( color );
     };
     
     return (
         <Slide title="Temperature Slide">
-            <CallsPerTemperatureChart data={getDataForDisplay()} />
+            <CallsPerTemperatureChart data={dataToDisplay} color={colorToDisplay} />
         </Slide>
     );
 };
