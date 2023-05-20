@@ -8,8 +8,6 @@ import { Slide } from "../Slide/Slide";
 export const TemperatureSlide = () => {
     const [ data, setData ] = useState( [] );
     const [ dataToDisplay, setDataToDisplay ] = useState( [] );
-    const [ colorToDisplay, setColorToDisplay ] = useState( "white" );
-
     
     useEffect( ( ) => {
         Papa.parse( callsPerTemperaturePerTitle, {
@@ -24,19 +22,18 @@ export const TemperatureSlide = () => {
         const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
         setDataToDisplay( baseData );
     };
-    const changeData = ( temperature, color ) =>{
+    const changeData = ( temperature ) =>{
         const temperatureData = data
             .filter( d => d.temperature == temperature )
             .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
             .sort( ( d1, d2 ) => ( d1.calls_count - d2.calls_count ) )
             .reverse();
         setDataToDisplay( temperatureData.slice( 1, 10 ) );
-        setColorToDisplay( color );
     };
     
     return (
         <Slide title="Temperature Slide">
-            <CallsPerTemperatureChart data={dataToDisplay} color={colorToDisplay} />
+            <CallsPerTemperatureChart data={dataToDisplay} />
         </Slide>
     );
 };
