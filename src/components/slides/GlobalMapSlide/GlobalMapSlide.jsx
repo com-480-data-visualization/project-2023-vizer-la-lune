@@ -4,6 +4,6 @@ import { Slide } from "../Slide/Slide";
 export const GlobalMapSlide = () => {
 
     return (
-        <Slide title="Global Map Slide"><div><p>{"We can put whatever html element or component here "}</p></div></Slide>
+        <Slide title="Global Map Slide"><div className="temporary_content"><p>{"We can put whatever html element or component here "}</p></div></Slide>
     );
 };

@@ -4,6 +4,6 @@ import { Slide } from "../Slide/Slide";
 export const IntroductionSlide = () => {
 
     return (
-        <Slide title= "Introduction slide "><div><p>{"We can put whatever html element or component here "}</p></div></Slide>
+        <Slide title= "Introduction slide "><div className="temporary_content"><p>{"We can put whatever html element or component here "}</p></div></Slide>
     );
 };
