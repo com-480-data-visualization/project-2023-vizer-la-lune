@@ -3,8 +3,8 @@ import "./Slider.css";
 import PropTypes from "prop-types";
 
 
-export const Slider = ( { minValue, maxValue, callBack } ) => {
-    const [ temperature, setTemperature ] = useState( 0 );
+export const Slider = ( { minValue, maxValue, callBack, baseValue } ) => {
+    const [ temperature, setTemperature ] = useState( baseValue );
     const rangeInput = useRef();
     const currentValueDisplay = useRef();
 
@@ -43,4 +43,4 @@ export const Slider = ( { minValue, maxValue, callBack } ) => {
     );
 };
 
-Slider.propTypes = { minValue: PropTypes.number, maxValue: PropTypes.number, callBack: PropTypes.func };
+Slider.propTypes = { minValue: PropTypes.number, maxValue: PropTypes.number, callBack: PropTypes.func, baseValue: PropTypes.number };
