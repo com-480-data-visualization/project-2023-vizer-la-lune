@@ -4,6 +4,7 @@ import "./TemperatureSlide.css";
 import callsPerTemperaturePerTitle from "../../../data/data_per_temperature/calls_per_title_per_temperature.csv";
 import { CallsPerTemperatureChart } from "./CallsPerTemperatureChart/CallsPerTemperatureChart";
 import { Slide } from "../Slide/Slide";
+import { Slider } from "./Slider/Slider";
 
 const MIN_TEMPERATURE = -11;
 const MAX_TEMPERATURE = 37;
@@ -27,7 +28,6 @@ export const TemperatureSlide = () => {
     };
     const changeData = ( event ) =>{
         const temperature = event.target.value;
-        console.log( temperature );
         const temperatureData = data
             .filter( d => parseInt( d.temperature ) == temperature )
             .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
@@ -39,12 +39,8 @@ export const TemperatureSlide = () => {
         <Slide title="Temperature Slide">
             <div className="temperature_slide_content">
                 <CallsPerTemperatureChart data={dataToDisplay} />
-                <div className="slider"> <div>
-                    <input type="range" name = "temperature" min = {MIN_TEMPERATURE} max={MAX_TEMPERATURE} onChange={changeData}/>
-                    <label htmlFor="temperature">Temperature</label>
-                </div></div>
+                <Slider minValue={MIN_TEMPERATURE} maxValue={MAX_TEMPERATURE} callBack={changeData} />
             </div>
-
         </Slide>
     );
 };
