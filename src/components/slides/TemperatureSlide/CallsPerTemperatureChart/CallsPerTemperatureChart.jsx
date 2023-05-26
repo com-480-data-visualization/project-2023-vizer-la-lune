@@ -63,7 +63,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             .append( "rect" )
             .attr( "x", d =>{ return x( d.title ); } )
             .attr( "width", x.bandwidth() )
-            .attr( "fill", "black" )
+            .attr( "fill", "var(--bar_chart_color)" )
         // no bar at the beginning thus:
             .attr( "height", d =>{ return height - y( 0 ); } ) // always equal to 0
             .attr( "y", d =>{ return y( 0 ); } )
