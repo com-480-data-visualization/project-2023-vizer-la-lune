@@ -8,6 +8,7 @@ import { Slider } from "./Slider/Slider";
 
 const MIN_TEMPERATURE = -11;
 const MAX_TEMPERATURE = 37;
+const BASE_VALUE = 0;
 
 export const TemperatureSlide = () => {
     const [ data, setData ] = useState( [] );
@@ -27,8 +28,7 @@ export const TemperatureSlide = () => {
     }, [ data ] );
 
     const setFirstDataForDisplay = () => {
-        const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
-        setDataToDisplay( baseData );
+        changeData( BASE_VALUE );
     };
     const changeData = ( temperature ) =>{
         const temperatureData = data
@@ -42,7 +42,7 @@ export const TemperatureSlide = () => {
         <Slide title="Temperature Slide">
             <div className="temperature_slide_content">
                 <CallsPerTemperatureChart data={dataToDisplay} />
-                <Slider minValue={MIN_TEMPERATURE} maxValue={MAX_TEMPERATURE} callBack={changeData} />
+                <Slider minValue={MIN_TEMPERATURE} maxValue={MAX_TEMPERATURE} baseValue={BASE_VALUE} callBack={changeData} />
             </div>
         </Slide>
     );
