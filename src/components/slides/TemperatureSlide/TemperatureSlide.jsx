@@ -5,6 +5,9 @@ import callsPerTemperaturePerTitle from "../../../data/data_per_temperature/call
 import { CallsPerTemperatureChart } from "./CallsPerTemperatureChart/CallsPerTemperatureChart";
 import { Slide } from "../Slide/Slide";
 
+const MIN_TEMPERATURE = -11;
+const MAX_TEMPERATURE = 37;
+
 export const TemperatureSlide = () => {
     const [ data, setData ] = useState( [] );
     const [ dataToDisplay, setDataToDisplay ] = useState( [] );
@@ -22,9 +25,11 @@ export const TemperatureSlide = () => {
         const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
         setDataToDisplay( baseData );
     };
-    const changeData = ( temperature ) =>{
+    const changeData = ( event ) =>{
+        const temperature = event.target.value;
+        console.log( temperature );
         const temperatureData = data
-            .filter( d => d.temperature == temperature )
+            .filter( d => parseInt( d.temperature ) == temperature )
             .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
             .sort( ( d1, d2 ) => ( d1.calls_count - d2.calls_count ) )
             .reverse();
@@ -34,11 +39,9 @@ export const TemperatureSlide = () => {
         <Slide title="Temperature Slide">
             <div className="temperature_slide_content">
                 <CallsPerTemperatureChart data={dataToDisplay} />
-                <div className="future_slider"> <div>
-                    <button onClick={()=>{changeData( "13.0" );}}> 13</button>
-                    <button onClick={()=>{changeData( "15.0" );}}>15</button>
-                    <button onClick={()=>{changeData( "23.0" );}}>23</button>
-                    <button onClick={()=>{changeData( "-2.0" );}}>-2</button>
+                <div className="slider"> <div>
+                    <input type="range" name = "temperature" min = {MIN_TEMPERATURE} max={MAX_TEMPERATURE} onChange={changeData}/>
+                    <label htmlFor="temperature">Temperature</label>
                 </div></div>
             </div>
 
