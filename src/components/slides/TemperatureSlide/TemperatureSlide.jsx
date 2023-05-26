@@ -4,6 +4,10 @@ import "./TemperatureSlide.css";
 import callsPerTemperaturePerTitle from "../../../data/data_per_temperature/calls_per_title_per_temperature.csv";
 import { CallsPerTemperatureChart } from "./CallsPerTemperatureChart/CallsPerTemperatureChart";
 import { Slide } from "../Slide/Slide";
+import { Slider } from "./Slider/Slider";
+
+const MIN_TEMPERATURE = -11;
+const MAX_TEMPERATURE = 37;
 
 export const TemperatureSlide = () => {
     const [ data, setData ] = useState( [] );
@@ -24,7 +28,7 @@ export const TemperatureSlide = () => {
     };
     const changeData = ( temperature ) =>{
         const temperatureData = data
-            .filter( d => d.temperature == temperature )
+            .filter( d => parseInt( d.temperature ) == temperature )
             .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
             .sort( ( d1, d2 ) => ( d1.calls_count - d2.calls_count ) )
             .reverse();
@@ -34,14 +38,8 @@ export const TemperatureSlide = () => {
         <Slide title="Temperature Slide">
             <div className="temperature_slide_content">
                 <CallsPerTemperatureChart data={dataToDisplay} />
-                <div className="future_slider"> <div>
-                    <button onClick={()=>{changeData( "13.0" );}}> 13</button>
-                    <button onClick={()=>{changeData( "15.0" );}}>15</button>
-                    <button onClick={()=>{changeData( "23.0" );}}>23</button>
-                    <button onClick={()=>{changeData( "-2.0" );}}>-2</button>
-                </div></div>
+                <Slider minValue={MIN_TEMPERATURE} maxValue={MAX_TEMPERATURE} callBack={changeData} />
             </div>
-
         </Slide>
     );
 };
