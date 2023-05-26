@@ -9,7 +9,7 @@ export const fillAndDisplayTootlip = ( tooltip, data ) =>{
     var title = data.title.toString();
     var callCount = data.calls_count;
     var tooltipSize = computeTooltipSize( title );
-    tooltip.html( "Type: " + title + "<br/> Value: " + callCount );
+    tooltip.html( "Type: " + title + "<br/> Calls Count: " + callCount );
     tooltip.style( "width", tooltipSize + "px" );
 };
 
