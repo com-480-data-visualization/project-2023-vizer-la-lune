@@ -30,14 +30,18 @@ export const TemperatureSlide = () => {
             .reverse();
         setDataToDisplay( temperatureData.slice( 1, 10 ) );
     };
-    
     return (
         <Slide title="Temperature Slide">
-            <CallsPerTemperatureChart data={dataToDisplay} />
-            <button onClick={()=>{changeData( "13.0" );}}> 13</button>
-            <button onClick={()=>{changeData( "15.0" );}}>15</button>
-            <button onClick={()=>{changeData( "23.0" );}}>23</button>
-            <button onClick={()=>{changeData( "-2.0" );}}>-2</button>
+            <div className="temperature_slide_content">
+                <CallsPerTemperatureChart data={dataToDisplay} />
+                <div className="future_slider"> <div>
+                    <button onClick={()=>{changeData( "13.0" );}}> 13</button>
+                    <button onClick={()=>{changeData( "15.0" );}}>15</button>
+                    <button onClick={()=>{changeData( "23.0" );}}>23</button>
+                    <button onClick={()=>{changeData( "-2.0" );}}>-2</button>
+                </div></div>
+            </div>
+
         </Slide>
     );
 };
