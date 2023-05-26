@@ -48,7 +48,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                 fillAndDisplayTootlip( tooltip, data );
             },
             "mouseMove": ( event ) =>{
-                moveTooltip( tooltip, event );
+                moveTooltip( tooltip, event, window.innerWidth );
             },
             "mouseLeave": ( ) =>{
                 hideTooltip( tooltip );
