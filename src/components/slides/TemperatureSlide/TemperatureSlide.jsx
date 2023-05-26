@@ -26,8 +26,7 @@ export const TemperatureSlide = () => {
         const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
         setDataToDisplay( baseData );
     };
-    const changeData = ( event ) =>{
-        const temperature = event.target.value;
+    const changeData = ( temperature ) =>{
         const temperatureData = data
             .filter( d => parseInt( d.temperature ) == temperature )
             .map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} )
