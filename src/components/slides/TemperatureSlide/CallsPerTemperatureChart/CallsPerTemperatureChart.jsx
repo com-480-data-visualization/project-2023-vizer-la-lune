@@ -11,7 +11,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
     
     const height = 500;
     const width = 1150;
-    const margin = { top: 20, right: 30, bottom: 30, left: 30 };
+    const margin = { top: 20, right: 30, bottom: 30, left: 50 };
 
     const cleanPage = ( svg ) => {
         svg.selectAll( "*" ).remove();
@@ -63,7 +63,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             .append( "rect" )
             .attr( "x", d =>{ return x( d.title ); } )
             .attr( "width", x.bandwidth() )
-            .attr( "fill", "blue" )
+            .attr( "fill", "black" )
         // no bar at the beginning thus:
             .attr( "height", d =>{ return height - y( 0 ); } ) // always equal to 0
             .attr( "y", d =>{ return y( 0 ); } )
@@ -108,7 +108,6 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                         width: "100%",
                         marginRight: "auto",
                         marginLeft: "auto",
-                        backgroundColor: "red"
                     }}
                 >
                     <g className="plot-area" />
