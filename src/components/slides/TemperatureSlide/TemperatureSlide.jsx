@@ -18,9 +18,13 @@ export const TemperatureSlide = () => {
             download: true,
             header: true,
             skipEmptyLines: true,
-            complete: ( results ) => { setData( results.data );setFirstDataForDisplay(); },
+            complete: ( results ) => { setData( results.data );},
         } );
     }, [] );
+
+    useEffect( () =>{
+        setFirstDataForDisplay();
+    }, [ data ] );
 
     const setFirstDataForDisplay = () => {
         const baseData = data.slice( 1, 10 ).map( ( piece ) => {return { "temperature": parseInt( piece.temperature ), "title": piece.title, "calls_count": parseInt( piece.calls_count ) };} );
