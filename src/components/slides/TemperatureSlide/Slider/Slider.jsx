@@ -6,14 +6,21 @@ import PropTypes from "prop-types";
 export const Slider = ( { minValue, maxValue, callBack } ) => {
     const [ temperature, setTemperature ] = useState( 0 );
     const rangeInput = useRef();
+    const currentValueDisplay = useRef();
 
     useEffect( () => {
         updateRangeWidth();
+        updateCurrentValueDisplayPosition();
     }, [ temperature ] );
 
     const updateRangeWidth = () =>{
         const newWidth = 100 * ( temperature - minValue ) / ( maxValue - minValue );
         rangeInput.current.style.backgroundSize = newWidth + "%";
+    };
+    const updateCurrentValueDisplayPosition = () => {
+        const newPosition = 100 * ( temperature - minValue ) / ( maxValue - minValue );
+        console.log( currentValueDisplay.current.style.width );
+        currentValueDisplay.current.style.marginLeft = "calc(" + newPosition + "% - 15px)" ;
     };
 
     const update = ( event ) =>{
@@ -23,11 +30,16 @@ export const Slider = ( { minValue, maxValue, callBack } ) => {
     };
 
     return (
-        <div className="slider"> <div>
-            <input type="range" name = "temperature" min = {minValue} max={maxValue} onChange={update} value={temperature} ref={rangeInput}/>
-            <output id="rangevalue">{temperature}</output>
-            <label htmlFor="temperature">Temperature</label>
-        </div></div>
+        <div className="slider flex"> 
+            <div className="slider_core flex">
+                <output className="min_value value">{minValue + "°"}</output>
+                <input type="range" min = {minValue} max={maxValue} onChange={update} value={temperature} ref={rangeInput}/>
+                <output className="max_value value">{maxValue + "°"}</output>
+            </div>
+            <div className="slider_value_displayer">
+                <div ref={currentValueDisplay} className = "current_value value flex">{temperature}</div>
+            </div>
+        </div>
     );
 };
 
