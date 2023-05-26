@@ -5,6 +5,7 @@ import { IntroductionSlide } from "./components/slides/IntroductionSlide/Introdu
 import { GlobalMapSlide } from "./components/slides/GlobalMapSlide/GlobalMapSlide";
 import { EventSlide } from "./components/slides/EventSlide/EventSlide";
 import { TemperatureSlide } from "./components/slides/TemperatureSlide/TemperatureSlide";
+import "./index.css";
 
 const root = ReactDOM.createRoot( document.getElementById( "root" ) );
 root.render(
