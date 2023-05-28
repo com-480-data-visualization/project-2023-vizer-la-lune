@@ -30,8 +30,7 @@ def getCallsData():
     return only_needed_columns
 
 def computeNumberOfCallPerEachTypeEachDay(data):
-    count_by_title_by_date = data.groupby(['title', 'timeStamp']).size()
-    return count_by_title_by_date
+    return data.groupby(['title', 'timeStamp']).size().to_frame('calls_count') 
 
 
 data = getCallsData()
