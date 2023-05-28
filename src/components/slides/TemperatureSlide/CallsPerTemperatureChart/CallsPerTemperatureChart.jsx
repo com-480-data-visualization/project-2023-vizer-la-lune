@@ -6,12 +6,19 @@ import "./CallsPerTemperatureChart.css";
 import { Tooltip } from "../Tooltip/Tooltip";
 import { fillAndDisplayTootlip, moveTooltip, hideTooltip } from "./utils.js";
 
+const COLOR_PER_CALL_TYPE = { "Fire": "#FF9933", "Traffic": "#9B9B9B", "EMS": "#B0E7F5" };
+
 
 export const CallsPerTemperatureChart = ( { data } ) => {
     
     const height = 500;
     const width = 1150;
     const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+
+    const getBarColorFromCallTitle = ( title ) => {
+        const callType = title.split( ":" )[0];
+        return COLOR_PER_CALL_TYPE[callType];
+    };
 
     const cleanPage = ( svg ) => {
         svg.selectAll( "*" ).remove();
@@ -63,7 +70,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             .append( "rect" )
             .attr( "x", d =>{ return x( d.title ); } )
             .attr( "width", x.bandwidth() )
-            .attr( "fill", "var(--bar_chart_color)" )
+            .attr( "fill", d => {return getBarColorFromCallTitle( d.title );} )
         // no bar at the beginning thus:
             .attr( "height", d =>{ return height - y( 0 ); } ) // always equal to 0
             .attr( "y", d =>{ return y( 0 ); } )
