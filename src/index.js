@@ -5,10 +5,11 @@ import { IntroductionSlide } from "./components/slides/IntroductionSlide/Introdu
 import { GlobalMapSlide } from "./components/slides/GlobalMapSlide/GlobalMapSlide";
 import { EventSlide } from "./components/slides/EventSlide/EventSlide";
 import { TemperatureSlide } from "./components/slides/TemperatureSlide/TemperatureSlide";
+import "./index.css";
 
 const root = ReactDOM.createRoot( document.getElementById( "root" ) );
 root.render(
     <React.StrictMode>
-        <FullPage slides={[ { "title": "Page 1", "color": "#7fff00", "content": <IntroductionSlide /> }, { "title": "Page 2", "color": "#7fff00", "content": <GlobalMapSlide/> }, { "title": "Page 3", "color": "#7fff00", "content": <EventSlide/> }, { "title": "Page 4", "color": "#7fff00", "content": <TemperatureSlide/> } ]}/>
+        <FullPage slides={[ { "title": "Page 1", "color": "#F0F8FF", "content": <IntroductionSlide /> }, { "title": "Page 2", "color": "#F0F8FF", "content": <GlobalMapSlide/> }, { "title": "Page 3", "color": "#F0F8FF", "content": <EventSlide/> }, { "title": "Page 4", "color": "F0F8FF", "content": <TemperatureSlide/> } ]}/>
     </React.StrictMode>,
 );

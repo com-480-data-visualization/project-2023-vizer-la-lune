@@ -1,10 +1,9 @@
 import React from "react";
 import "./GlobalMapSlide.css";
+import { Slide } from "../Slide/Slide";
 export const GlobalMapSlide = () => {
 
     return (
-        <div className="section">
-            <h3>Global Map Slide</h3>
-        </div>
+        <Slide title="Global Map Slide"><div className="temporary_content"><p>{"We can put whatever html element or component here "}</p></div></Slide>
     );
 };
