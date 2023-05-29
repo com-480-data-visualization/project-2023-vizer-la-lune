@@ -4,7 +4,7 @@ import * as d3 from "d3";
 import "./EventChart.css";
 import PropTypes from "prop-types";
 
-export const ExampleofLine = ( { data } ) => {
+export const EventChart = ( { data } ) => {
     const ref = useD3(
         ( svg ) => {
             const height = 500;
