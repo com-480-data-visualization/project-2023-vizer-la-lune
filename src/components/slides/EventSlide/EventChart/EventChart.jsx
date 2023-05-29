@@ -39,7 +39,7 @@ export const EventChart = ( { data } ) => {
                 .attr( "stroke-width", 1.5 )
                 .attr( "transform", "translate(" + margin.left + ",0)" )
                 .attr( "d", d3.line()
-                    .x( function( d ) { return x( d.year ); } )
+                    .x( ( d ) => { return x( d.year ); } )
                     .y( function( d ) { return y( d.sales ); } )
                 );
             svg.append( "path" )
