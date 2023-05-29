@@ -7,7 +7,7 @@ import "./GlobalMap.css";
 
 // Constants
 const YOUR_LATITUDE = 40.22; // Latitude of Montgomery County, PA
-const YOUR_LONGITUDE = -75.45; // Longitude of Montgomery County, PA
+const YOUR_LONGITUDE = -75.38; // Longitude of Montgomery County, PA
 const INITIAL_ZOOM_LEVEL = 10; // Initial zoom level to display Montgomery County, PA
 
 export const GlobalMap = ( { geoJsonData, data } ) => {
@@ -91,7 +91,7 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
                     attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-    
+
                 <GeoJSON
                     ref={geoJsonRef}
                     data={geoJsonData}
