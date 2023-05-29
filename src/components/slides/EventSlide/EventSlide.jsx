@@ -1,7 +1,7 @@
 import React from "react";
 import "./EventSlide.css";
 import { Slide } from "../Slide/Slide";
-import { ExampleofLine } from "./EventChart/EventChart";
+import { EventChart } from "./EventChart/EventChart";
 import callsPerEvent from "../../../data/data_per_event/calls_per_day_per_type.csv";
 
 const data = [
