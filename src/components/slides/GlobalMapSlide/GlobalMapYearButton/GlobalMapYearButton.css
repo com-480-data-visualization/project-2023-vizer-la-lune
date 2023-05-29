@@ -1,0 +1,14 @@
+global-map-year-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .global-map-year-button.selected {
+    background-color: #333;
+    color: #fff;
+  }

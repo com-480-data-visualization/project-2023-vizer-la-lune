@@ -6,6 +6,7 @@ import _ from "lodash";
 import callsPerZip from "../../../data/data_per_zip/calls_per_zip.csv";
 import zipcodesData from "../../../data/data_per_zip/zipcodes.json";
 import { GlobalMap } from "./GlobalMap/GlobalMap";
+import { GlobalMapYearButton } from "./GlobalMapYearButton/GlobalMapYearButton";
 
 export const GlobalMapSlide = () => {
     
@@ -27,6 +28,13 @@ export const GlobalMapSlide = () => {
     const [ geoData, setGeoData ] = useState( null );
     const [ dataToDisplay, setDataToDisplay ] = useState( [] );
     const [ geoDataToDisplay, setGeoDataToDisplay ] = useState( null );
+    const [ selectedYear, setSelectedYear ] = useState( "2017" );
+
+    const handleYearButtonClick = ( year ) => {
+        setSelectedYear( year );
+        setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear ) );
+    };
+    
     useEffect( () => {
         setGeoData( zipcodesData );
         Papa.parse( callsPerZip, {
@@ -59,7 +67,7 @@ export const GlobalMapSlide = () => {
     }, [ geoData, data ] );
 
     const getDataForDisplay = () => {
-        return data.slice( 1, 10 ).map( ( piece, index ) => {
+        return data.map( ( piece, index ) => {
             return {
                 zip: parseInt( piece.zip ),
                 e: parseInt( piece.e ),
@@ -72,9 +80,9 @@ export const GlobalMapSlide = () => {
     };
 
     const getGeoJsonForDisplay = () =>{
+        const filteredData = data.filter( ( item ) => item.year === selectedYear );
         // Group data by zip codes and count calls per zip code
-        const groupedData = _.groupBy( data, "zip" );
-        // Give {19002: 1, 19044: 2}
+        const groupedData = _.groupBy( filteredData, "zip" );
         const callsPerZipLocal = _.mapValues( groupedData, "length" );//Nom de var a changer
 
         const onlyMontgomeryCitiesGeoJsonData = geoData.features.filter( ( feature ) => {
@@ -99,9 +107,21 @@ export const GlobalMapSlide = () => {
         };
         return formattedGeojson;
     };
+
+    const availableYears = [ ...new Set( data.map( ( item ) => item.year ) ) ];
     
     return (
         <Slide title = "Global Map">
+            <div className="global-map-year-buttons">
+                {availableYears.map( ( year ) => (
+                    <GlobalMapYearButton
+                        key={year}
+                        year={year}
+                        selectedYear={selectedYear === year}
+                        onYearButtonClick={handleYearButtonClick}
+                    />
+                ) )}
+            </div>
             <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
         </Slide>
     );
