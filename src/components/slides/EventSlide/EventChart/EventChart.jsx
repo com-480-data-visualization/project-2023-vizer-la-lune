@@ -73,4 +73,4 @@ export const ExampleofLine = ( { data } ) => {
     );
 };
 
-ExampleofLine.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "year": PropTypes.number, "efficiency": PropTypes.number, "sales": PropTypes.number } ) ) };
+EventChart.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "year": PropTypes.number, "efficiency": PropTypes.number, "sales": PropTypes.number } ) ) };
