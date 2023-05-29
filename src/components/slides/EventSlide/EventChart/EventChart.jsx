@@ -40,7 +40,7 @@ export const EventChart = ( { data } ) => {
                 .attr( "transform", "translate(" + margin.left + ",0)" )
                 .attr( "d", d3.line()
                     .x( ( d ) => { return x( d.year ); } )
-                    .y( function( d ) { return y( d.sales ); } )
+                    .y( ( d ) => { return y( d.sales ); } )
                 );
             svg.append( "path" )
                 .datum( data )
