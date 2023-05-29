@@ -1,7 +1,27 @@
-.temporary_content{
+.introduction_slide_content{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     height:100%;
+}
+.introduction_text{
+    width: 80%
+}
+
+.introduction_stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.stats_catch_phrase{
+    font-size: 1.5em;
+}
+
+.counters{
+    display: flex;
+    flex-direction: row;
 }

@@ -1,0 +1,13 @@
+.chart{
+    height: 100%;
+    width: 80%;
+}
+
+.chart_content{
+    height:100%;
+    width: 100%;
+}
+
+.fill-area{
+    fill: none;
+}
