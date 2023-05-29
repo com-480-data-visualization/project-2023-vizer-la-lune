@@ -3,8 +3,8 @@ import { useD3 } from "../../../../hook/useD3";
 import * as d3 from "d3";
 import PropTypes from "prop-types";
 import "./CallsPerTemperatureChart.css";
-import { Tooltip } from "../Tooltip/Tooltip";
 import { fillAndDisplayTootlip, moveTooltip, hideTooltip } from "./utils.js";
+import { Tooltip } from "../../../Tooltip/Tooltip";
 
 const COLOR_PER_CALL_TYPE = { "Fire": "#FF9933", "Traffic": "#9B9B9B", "EMS": "#B0E7F5" };
 
@@ -96,7 +96,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             cleanPage( svg );
             const x = createHorizontalAxis( svg );
             const y = createVerticalAxis( svg );
-            const tooltip = d3.select( ".tooltip" );
+            const tooltip = d3.select( "#temperature_tooltip" );
             const mouseActions = createMouseActions( tooltip );
             plotDataBars( svg, x, y, mouseActions );
             createAnimationOnBars( svg, y ); 
@@ -120,7 +120,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
                     <g className="plot-area" />
                 </svg>
             </div>
-            <Tooltip></Tooltip>      
+            <Tooltip tooltipId="temperature_tooltip"></Tooltip>   
         </div>
     );
 };
