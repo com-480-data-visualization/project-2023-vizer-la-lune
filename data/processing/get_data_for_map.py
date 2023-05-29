@@ -30,7 +30,6 @@ def getCallsData():
     only_needed_columns["timeStamp"] = only_needed_columns["timeStamp"].apply(approximateHour)
     return only_needed_columns
 
-
 def getMapData():
     calls_data = getCallsData()
     calls_data["month"] = calls_data["timeStamp"].apply(lambda x: x.month)
