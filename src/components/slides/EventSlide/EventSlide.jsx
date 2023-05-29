@@ -41,7 +41,7 @@ const data = [
 export const EventSlide = () => {
     return (
         <Slide title= "Event Slide">
-            <div className="temporary_content"><ExampleofLine data = {data}/></div></Slide>
+            <div className="temporary_content"><EventChart data = {data}/></div></Slide>
     );
 };
 
