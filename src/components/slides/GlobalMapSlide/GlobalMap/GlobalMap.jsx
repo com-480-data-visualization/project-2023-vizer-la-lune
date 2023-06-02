@@ -51,7 +51,7 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
 
     // Style function for GeoJSON layer
     const style = ( feature ) => {
-        const count = feature.properties.normalizedCalls;
+        const count = feature.properties.calls;
         return {
             fillColor: getColor( count ), // Use the getColor function to determine the fill color
             weight: 1,

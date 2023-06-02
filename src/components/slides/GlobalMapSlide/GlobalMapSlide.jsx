@@ -32,7 +32,7 @@ export const GlobalMapSlide = () => {
     const [ geoData, setGeoData ] = useState( null );
     const [ dataToDisplay, setDataToDisplay ] = useState( [] );
     const [ geoDataToDisplay, setGeoDataToDisplay ] = useState( null );
-    const [ selectedYear, setSelectedYear ] = useState( "2017" );
+    const [ selectedYear, setSelectedYear ] = useState( "2016" );
     const [ selectedGroup, setSelectedGroup ] = useState( "All" );
     const [ selectedMonth, setSelectedMonth ] = useState( "1" );
     const [ selectedTownship, setSelectedTownship ] = useState( "All" );
@@ -107,6 +107,8 @@ export const GlobalMapSlide = () => {
         } );
     };
 
+    var emptyTownships = false;
+
     const getGeoJsonForDisplay = ( year, group, month, township ) =>{
         var filteredData = data.filter( ( item ) => item.year === year );
 
@@ -117,10 +119,11 @@ export const GlobalMapSlide = () => {
         // if selectedTownship is not "All", filter data by selectedTownship
         if ( township !== "All" ) {
             filteredData = filteredData.filter( ( item ) => item.twp === township );
-            console.log( filteredData.length );
         }
 
         filteredData = filteredData.filter( ( item ) => item.month === month );
+
+        console.log( filteredData.length );
         // Group data by zip codes and count calls per zip code
         const groupedData = _.groupBy( filteredData, "zip" );
         const callsPerZipLocal = _.mapValues( groupedData, "length" );//Nom de var a changer
