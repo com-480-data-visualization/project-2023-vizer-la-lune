@@ -33,7 +33,7 @@ export const Slider = ( { minValue, maxValue, callBack, baseValue } ) => {
         <div className="slider flex"> 
             <div className="slider_core flex">
                 <output className="min_value value">{minValue + "°"}</output>
-                <input type="range" min = {minValue} max={maxValue} onChange={update} value={temperature} ref={rangeInput}/>
+                <input type="range" id="slider" min = {minValue} max={maxValue} onChange={update} value={temperature} ref={rangeInput}/>
                 <output className="max_value value">{maxValue + "°"}</output>
             </div>
             <div className="slider_value_displayer">
