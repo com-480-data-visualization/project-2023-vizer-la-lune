@@ -1,14 +1,27 @@
-global-map-year-button {
-    background-color: transparent;
-    border: none;
-    color: #333;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 8px 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .global-map-year-button.selected {
-    background-color: #333;
-    color: #fff;
-  }
+.global-map-year-button {
+  background-color: "blue";
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 20px; /* Increase the font size for a bigger button */
+  padding: 12 24px; /* Increase the padding for more spacing */
+  transition: background-color 0.3s ease;
+}
+
+.global-map-year-button.selected {
+  background-color: #333;
+  color: #fff;
+}
+/*Space out each buttons*/
+.global-map-year-button:not(:last-child) {
+  margin-right: 10px;
+}
+
+/*Align the buttons vertically*/
+.global-map-year-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
