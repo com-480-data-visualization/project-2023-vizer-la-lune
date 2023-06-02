@@ -15,7 +15,8 @@
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-youtube": "^10.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
