@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot( document.getElementById( "root" ) );
 root.render(
     <React.StrictMode>
         <FullPage slides={[ 
-            { "title": "Intro", "color": "#F0F8FF", "content": <IntroductionSlide /> },
+            { "title": "Intro", "color": "#000000", "content": <IntroductionSlide /> },
             { "title": "Transition1", "color": "#F0F8FF", "content": <IntroToMapTransitionSlide /> },
             { "title": "Map", "color": "#F0F8FF", "content": <GlobalMapSlide/> },
             { "title": "Transition2", "color": "#F0F8FF", "content": <MapToEventTransitionSlide /> },
