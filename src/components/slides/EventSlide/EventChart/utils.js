@@ -4,11 +4,10 @@ export const computeTooltipSize = ( content ) => {
     return tooltipSize;
 };
 
-export const fillAndDisplayTootlip = ( tooltip, data ) =>{
+export const fillAndDisplayTootlip = ( tooltip, data, type ) => {
     tooltip.style( "visibility", "visible" ); 
-    console.log( "ISITGOOOD??", data.Traffic );
-    var tooltipSize = computeTooltipSize( "Traffic" );
-    tooltip.html( "Type: Traffic " + "<br/> Calls Count: " + data.Traffic );
+    const tooltipSize = computeTooltipSize( "Traffic" );
+    tooltip.html( "Type: " + type + "<br/> Calls Count: " + data );
     tooltip.style( "width", tooltipSize + "px" );
     
 };
