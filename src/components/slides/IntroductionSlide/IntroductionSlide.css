@@ -10,7 +10,9 @@
 }
 .introduction_text{
     width: 80%;
-    color:white
+    color:white;
+    font-size:18px;
+    text-align:justify;
 }
 
 .introduction_stats{
@@ -18,7 +20,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .stats_catch_phrase{
     font-size: 1.5em;
@@ -35,4 +37,7 @@
     font-weight: 700;
     font-size: 4em;
     font-family: arial, helvetica;
+}
+.bold{
+    font-weight: bold;
 }
