@@ -119,6 +119,7 @@ export const GlobalMapSlide = () => {
         // if selectedTownship is not "All", filter data by selectedTownship
         if ( township !== "All" ) {
             filteredData = filteredData.filter( ( item ) => item.twp === township );
+            console.log( township );
         }
 
         filteredData = filteredData.filter( ( item ) => item.month === month );
