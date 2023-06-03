@@ -166,7 +166,6 @@ export const GlobalMapSlide = () => {
                     ) )}
                 </div>
             </div>
-            <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
             <div className="filter-panel">
                 <FilterPanelGlobalMap
                     availableGroups={availableGroups}
@@ -177,6 +176,7 @@ export const GlobalMapSlide = () => {
                     onTownshipChange={handleTownshipChange}
                 />
             </div>
+            <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
             <SliderMonth callBack={handleMonthChange} baseValue = {1}/>
         </Slide>
     );
