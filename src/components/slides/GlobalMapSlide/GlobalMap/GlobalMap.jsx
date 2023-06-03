@@ -62,7 +62,11 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
     };
 
 
+<<<<<<< HEAD
     const colorScale = chroma.scale( [ "lightgreen", "lightyellow", "yellow", "orange", "red" ] ).domain( [ 0, 5 ] ).mode( "lch" );
+=======
+    const colorScale = chroma.scale( [ "lightgreen", "lightyellow", "yellow", "orange", "red" ] ).domain( [ 0, 1 ] ).mode( "lch" );
+>>>>>>> master
     
     // Function to get color based on call count
     const getColor = ( callCount ) => {
@@ -75,7 +79,11 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
 
     function onEachFeature( feature, layer ) {
         const zip = feature.properties.ZCTA5CE10;
+<<<<<<< HEAD
         const count = feature.properties.calls;
+=======
+        const count = feature.properties.normalizedCalls;
+>>>>>>> master
         console.log( count );
         layer.bindPopup( `Zip Code: ${zip}<br>Call Count: ${count}` );
     }
