@@ -6,6 +6,9 @@ import _ from "lodash";
 import callsPerZip from "../../../data/data_per_zip/calls_per_zip.csv";
 import zipcodesData from "../../../data/data_per_zip/zipcodes.json";
 import { GlobalMap } from "./GlobalMap/GlobalMap";
+import { GlobalMapYearButton } from "./GlobalMapYearButton/GlobalMapYearButton";
+import { FilterPanelGlobalMap } from "./FilterPanelGlobalMap/FilterPanelGlobalMap";
+import { SliderMonth } from "./SliderMonth/SliderMonth";
 
 export const GlobalMapSlide = () => {
     
@@ -23,10 +26,43 @@ export const GlobalMapSlide = () => {
         "19512", "19525", "19536", "19562", "19580"
     ];
 
+    // Button to select year
+
     const [ data, setData ] = useState( [] );
     const [ geoData, setGeoData ] = useState( null );
     const [ dataToDisplay, setDataToDisplay ] = useState( [] );
     const [ geoDataToDisplay, setGeoDataToDisplay ] = useState( null );
+    const [ selectedYear, setSelectedYear ] = useState( "2016" );
+    const [ selectedGroup, setSelectedGroup ] = useState( "All" );
+    const [ selectedMonth, setSelectedMonth ] = useState( "1" );
+    const [ selectedTownship, setSelectedTownship ] = useState( "All" );
+
+    // Filter panel to select accident type
+
+    const availableYears = [ ...new Set( data.map( ( item ) => item.year ) ) ];
+    const availableGroups = [ ...new Set( data.map( ( item ) => item.group ) ) ];
+    const availableTownships = [ ...new Set( data.map( ( item ) => item.twp ) ) ];
+
+    const handleYearButtonClick = ( year ) => {
+        setSelectedYear( year );
+        setGeoDataToDisplay( getGeoJsonForDisplay( year, selectedGroup, selectedMonth, selectedTownship ) );
+    };
+
+    const handleGroupChange = ( group ) => {
+        setSelectedGroup( group );
+        setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear, group, selectedMonth, selectedTownship ) );
+    };
+
+    const handleMonthChange = ( month ) => {
+        setSelectedMonth( month );
+        setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear, selectedGroup, month, selectedTownship ) );
+    };
+
+    const handleTownshipChange = ( township ) => {
+        setSelectedTownship( township );
+        setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear, selectedGroup, selectedMonth, township ) );
+    };
+    
     useEffect( () => {
         setGeoData( zipcodesData );
         Papa.parse( callsPerZip, {
@@ -41,25 +77,25 @@ export const GlobalMapSlide = () => {
 
     useEffect( () => {
         if ( data !== [] ){ 
-            setDataToDisplay( getDataForDisplay() );
+            setDataToDisplay( getDataForDisplay( selectedYear, selectedGroup, selectedMonth, selectedTownship ) );
         }
 
     }, [ data ] );
 
     useEffect( () => {
         if ( geoData !== null && geoData.features.length > 0 && data.length !== 0 ){
-            setGeoDataToDisplay( getGeoJsonForDisplay() );
+            setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear, selectedGroup, selectedMonth, selectedTownship ) );
         }
     }, [ geoData, data ] );
 
     useEffect( () => {
         if ( geoData !== null && geoData.features.length > 0 && data.length !== 0 ) {
-            setGeoDataToDisplay( getGeoJsonForDisplay() );
+            setGeoDataToDisplay( getGeoJsonForDisplay( selectedYear, selectedGroup, selectedMonth, selectedTownship ) );
         }
     }, [ geoData, data ] );
 
     const getDataForDisplay = () => {
-        return data.slice( 1, 10 ).map( ( piece, index ) => {
+        return data.map( ( piece, index ) => {
             return {
                 zip: parseInt( piece.zip ),
                 e: parseInt( piece.e ),
@@ -71,10 +107,26 @@ export const GlobalMapSlide = () => {
         } );
     };
 
-    const getGeoJsonForDisplay = () =>{
+    var emptyTownships = false;
+
+    const getGeoJsonForDisplay = ( year, group, month, township ) =>{
+        var filteredData = data.filter( ( item ) => item.year === year );
+
+        // if selectedGroup is not "All", filter data by selectedGroup
+        if ( group !== "All" ) {
+            filteredData = filteredData.filter( ( item ) => item.group === group );
+        }
+        // if selectedTownship is not "All", filter data by selectedTownship
+        if ( township !== "All" ) {
+            filteredData = filteredData.filter( ( item ) => item.twp === township );
+            console.log( township );
+        }
+
+        filteredData = filteredData.filter( ( item ) => item.month === month );
+
+        console.log( filteredData.length );
         // Group data by zip codes and count calls per zip code
-        const groupedData = _.groupBy( data, "zip" );
-        // Give {19002: 1, 19044: 2}
+        const groupedData = _.groupBy( filteredData, "zip" );
         const callsPerZipLocal = _.mapValues( groupedData, "length" );//Nom de var a changer
 
         const onlyMontgomeryCitiesGeoJsonData = geoData.features.filter( ( feature ) => {
@@ -102,7 +154,30 @@ export const GlobalMapSlide = () => {
     
     return (
         <Slide title = "Global Map">
+            <div className="global-map-year-buttons-container">
+                <div className="global-map-year-buttons">
+                    {availableYears.map( ( year ) => (
+                        <GlobalMapYearButton
+                            key={year}
+                            year={year}
+                            selectedYear={selectedYear === year}
+                            onYearButtonClick={handleYearButtonClick}
+                        />
+                    ) )}
+                </div>
+            </div>
             <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
+            <div className="filter-panel">
+                <FilterPanelGlobalMap
+                    availableGroups={availableGroups}
+                    selectedGroup={selectedGroup}
+                    onGroupChange={handleGroupChange}
+                    availableTownships={availableTownships}
+                    selectedTownship={selectedTownship}
+                    onTownshipChange={handleTownshipChange}
+                />
+            </div>
+            <SliderMonth callBack={handleMonthChange} baseValue = {1}/>
         </Slide>
     );
 };

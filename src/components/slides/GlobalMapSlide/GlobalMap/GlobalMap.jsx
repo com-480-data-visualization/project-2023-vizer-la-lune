@@ -21,7 +21,7 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
             if ( geoJsonData.features[0].properties["calls"] != undefined && geoJsonData.features[0].properties["calls"] != "no data" ){
                 const onlyWithData = geoJsonData.features.filter( ( feature ) => feature.properties.calls != "no data" );
                 const maxCallsCount = onlyWithData.map( ( feature )=> feature.properties.calls ).sort( ( a, b ) => a - b ).reverse()[0];
-                const features = geoJsonData.features.map( ( feature ) =>{ console.log( feature.calls );return {
+                const features = geoJsonData.features.map( ( feature ) =>{return {
                     ...feature,
                     properties: {
                         ...feature.properties,
@@ -61,12 +61,13 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
         };
     };
 
-    const colorScale = chroma.scale( [ "lightyellow", "orange", "red" ] ).mode( "hsl" );
-  
+
+    const colorScale = chroma.scale( [ "lightgreen", "lightyellow", "yellow", "orange", "red" ] ).domain( [ 0, 1 ] ).mode( "lch" );
+    
     // Function to get color based on call count
     const getColor = ( callCount ) => {
         if ( callCount != "no data" ){
-            return colorScale( callCount ).hex();
+            return colorScale( Math.pow( callCount, 0.3 ) );
         } else {
             return "#ccc";
         }
@@ -74,7 +75,8 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
 
     function onEachFeature( feature, layer ) {
         const zip = feature.properties.ZCTA5CE10;
-        const count = feature.properties.calls;
+        const count = feature.properties.normalizedCalls;
+        console.log( count );
         layer.bindPopup( `Zip Code: ${zip}<br>Call Count: ${count}` );
     }
 
