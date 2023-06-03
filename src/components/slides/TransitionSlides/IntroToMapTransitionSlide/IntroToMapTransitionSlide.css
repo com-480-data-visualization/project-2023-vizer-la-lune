@@ -1,7 +1,12 @@
-.temporary_content{
+.transition_content{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height:100%;
+
+}
+.transition_text{
+    width:70%;
+    text-align: justify;
 }
