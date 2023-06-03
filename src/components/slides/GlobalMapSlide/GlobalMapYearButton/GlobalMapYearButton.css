@@ -1,27 +1,29 @@
+.global-map-year-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.global-map-year-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .global-map-year-button {
-  background-color: "blue";
+  background-color: rgba(244, 204, 103, 0.449);
   border: none;
   color: #333;
   cursor: pointer;
-  font-size: 20px; /* Increase the font size for a bigger button */
-  padding: 12 24px; /* Increase the padding for more spacing */
+  font-size: 20px;
+  padding: 12px 24px;
+  margin: 5px; /* Adjust margin as needed for spacing */
   transition: background-color 0.3s ease;
 }
 
 .global-map-year-button.selected {
   background-color: #333;
   color: #fff;
-}
-/*Space out each buttons*/
-.global-map-year-button:not(:last-child) {
-  margin-right: 10px;
-}
-
-/*Align the buttons vertically*/
-.global-map-year-button-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
 }

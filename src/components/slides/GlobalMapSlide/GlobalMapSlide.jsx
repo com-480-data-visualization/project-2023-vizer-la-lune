@@ -154,7 +154,19 @@ export const GlobalMapSlide = () => {
     
     return (
         <Slide title = "Global Map">
-            <SliderMonth callBack={handleMonthChange} baseValue = {1}/>
+            <div className="global-map-year-buttons-container">
+                <div className="global-map-year-buttons">
+                    {availableYears.map( ( year ) => (
+                        <GlobalMapYearButton
+                            key={year}
+                            year={year}
+                            selectedYear={selectedYear === year}
+                            onYearButtonClick={handleYearButtonClick}
+                        />
+                    ) )}
+                </div>
+            </div>
+            <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
             <div className="filter-panel">
                 <FilterPanelGlobalMap
                     availableGroups={availableGroups}
@@ -165,17 +177,7 @@ export const GlobalMapSlide = () => {
                     onTownshipChange={handleTownshipChange}
                 />
             </div>
-            <div className="global-map-year-buttons">
-                {availableYears.map( ( year ) => (
-                    <GlobalMapYearButton
-                        key={year}
-                        year={year}
-                        selectedYear={selectedYear === year}
-                        onYearButtonClick={handleYearButtonClick}
-                    />
-                ) )}
-            </div>
-            <GlobalMap geoJsonData={geoDataToDisplay} data={dataToDisplay} />
+            <SliderMonth callBack={handleMonthChange} baseValue = {1}/>
         </Slide>
     );
 };
