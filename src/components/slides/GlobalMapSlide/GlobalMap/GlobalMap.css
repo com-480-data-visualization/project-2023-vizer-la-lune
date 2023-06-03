@@ -2,6 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    position: relative;
+    width: 100%;
+    height: 50%;
+    margin-top: 100px;
+    /* reduce the size of the map */
+    transform: scale(0.95);
+    margin-bottom: 40px;
   }
 
