@@ -11,7 +11,7 @@ export const GlobalMapYearButton = ( { year, selectedYear, onYearButtonClick } )
     return (
         <div className="button-container">
             <button
-                className={`global-map-year-button ${year === selectedYear ? "selected" : ""}`}
+                className={`global-map-year-button ${selectedYear ? "selected" : ""}`}
                 onClick={handleClick}
             >
                 {year}

@@ -8,6 +8,8 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    margin-top: 100px;
+    transform: scale(0.9);
   }
   
 .slider_month_core{
@@ -15,7 +17,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-left: 100px;
 }
   
 .slider_month_value_displayer{
@@ -24,9 +25,10 @@
 }
   
   .slider_month_value{
-    font-size: 1.5em;
+    font-size: 1.25em;
+    font-weight: bold;
     width: 100px;
-    height:20px
+    height:25px
   }
   
   .slider_month_min_value{

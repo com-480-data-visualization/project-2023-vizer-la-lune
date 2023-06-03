@@ -62,7 +62,7 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
     };
 
 
-    const colorScale = chroma.scale( [ "lightgreen", "lightyellow", "yellow", "orange", "red" ] ).domain( [ 0, 5 ] ).mode( "lch" );
+    const colorScale = chroma.scale( [ "lightgreen", "lightyellow", "yellow", "orange", "red" ] ).domain( [ 0, 6 ] ).mode( "lch" );
     
     // Function to get color based on call count
     const getColor = ( callCount ) => {
