@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin-left: 300px;
   }
   
 .slider_month_core{
@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-left: 100px;
 }
   
 .slider_month_value_displayer{
@@ -24,7 +23,8 @@
 }
   
   .slider_month_value{
-    font-size: 1.5em;
+    font-size: 1.25em;
+    font-weight: bold;
     width: 100px;
     height:20px
   }
