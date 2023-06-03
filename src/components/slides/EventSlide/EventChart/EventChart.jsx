@@ -10,28 +10,26 @@ export const EventChart = ( { data } ) => {
             const height = 500;
             const width = 1150;
             const margin = { top: 20, right: 30, bottom: 30, left: 60 };
-            
+
             var x = d3
-                .scaleBand()
-                .domain( data.map( d => {return d.year; } ) )
-                .range( [ 0, width - margin.left ] )
-                .padding( 0.2 );
+                .scaleTime()
+                .domain( d3.extent( data, ( d ) => { return d.date; } ) )
+                .range( [ 0, width - margin.left ] );
 
             var y = d3
                 .scaleLinear()
-                .domain( [ 0, d3.max( data, ( d ) => d.sales ) ] )
+                .domain( [ 0, d3.max( data, ( d ) => d.EMS ) ] )
                 .rangeRound( [ height, margin.top ] );
-  
+            
             svg.append( "g" )
-                .call( d3.axisBottom( x ) )
+                .call( d3.axisBottom( x ).tickFormat( d3.timeFormat( "%Y-%m-%d" ) ) )
                 .attr( "transform", "translate(" + margin.left + "," + ( height + height / 20 ) + ")" )
                 .selectAll( "text" );
-
+    
             svg.append( "g" )
                 .call( d3.axisLeft( y ) )
                 .attr( "transform", "translate(" + margin.left + "," + ( height / 20 ) + ")" );
 
-            // Add the line
             svg.append( "path" )
                 .datum( data )
                 .attr( "fill", "none" )
@@ -39,9 +37,8 @@ export const EventChart = ( { data } ) => {
                 .attr( "stroke-width", 1.5 )
                 .attr( "transform", "translate(" + margin.left + ",0)" )
                 .attr( "d", d3.line()
-                    .x( ( d ) => { return x( d.year ); } )
-                    .y( ( d ) => { return y( d.sales ); } )
-                );
+                    .x( ( d ) => { return x( d.date ); } )
+                    .y( ( d ) => { return y( d.Traffic ); } ) );
             svg.append( "path" )
                 .datum( data )
                 .attr( "fill", "none" )
@@ -49,8 +46,17 @@ export const EventChart = ( { data } ) => {
                 .attr( "stroke-width", 1.5 )
                 .attr( "transform", "translate(" + margin.left + ",0)" )
                 .attr( "d", d3.line()
-                    .x( ( d ) => x( d.year ) )
-                    .y( ( d ) => y( d.efficiency ) ) );
+                    .x( ( d ) => x( d.date ) )
+                    .y( ( d ) => y( d.EMS ) ) );
+            svg.append( "path" )
+                .datum( data )
+                .attr( "fill", "none" )
+                .attr( "stroke", "black" )
+                .attr( "stroke-width", 1.5 )
+                .attr( "transform", "translate(" + margin.left + ",0)" )
+                .attr( "d", d3.line()
+                    .x( ( d ) => x( d.date ) )
+                    .y( ( d ) => y( d.Fire ) ) );
 
         }, [ data.length ] );
 
@@ -73,4 +79,4 @@ export const EventChart = ( { data } ) => {
     );
 };
 
-EventChart.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "year": PropTypes.number, "efficiency": PropTypes.number, "sales": PropTypes.number } ) ) };
+EventChart.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "date": PropTypes.instanceOf( Date ), "EMS": PropTypes.number, "Fire": PropTypes.number, "Traffic": PropTypes.number } ) ) };
