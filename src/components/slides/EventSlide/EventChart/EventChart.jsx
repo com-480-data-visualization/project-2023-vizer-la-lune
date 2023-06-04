@@ -12,7 +12,7 @@ const COLOR_PER_CALL_TYPE = { "Fire": "#FF9933", "Traffic": "#9B9B9B", "EMS": "#
 const EVENT_TYPE = [ "Fire", "EMS", "Traffic" ];
 
 
-export const EventChart = ( { data, centerDate } ) => {
+export const EventChart = ( { data } ) => {
     const dates = data.map( d => d.date );
 
     const height = 500;
@@ -36,7 +36,7 @@ export const EventChart = ( { data, centerDate } ) => {
     const createVerticalAxis = ( svg ) => {
         var y = d3
             .scaleLinear()
-            .domain( [ 0, d3.max( data, ( d ) => d.Traffic ) ] )
+            .domain( [ 0, d3.max( data, ( d ) => d3.max( [ d.Traffic, d.Fire, d.EMS ] ) ) ] )
             .rangeRound( [ height, margin.top ] );
         
         svg.append( "g" )
