@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import { Tooltip } from "../../../Tooltip/Tooltip";
 import { fillAndDisplayTootlip, hideTooltip } from "./utils.js";
+import { EventButton } from "../EventButtons/EventButton";
 
 const COLOR_PER_CALL_TYPE = { "Fire": "#FF9933", "Traffic": "#9B9B9B", "EMS": "#B0E7F5" };
 const EVENT_TYPE = [ "Fire", "EMS", "Traffic" ];
@@ -17,6 +18,7 @@ export const EventChart = ( { data } ) => {
     const height = 500;
     const width = 1150;
     const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+
     const cleanPage = ( svg ) => {
         svg.selectAll( "*" ).remove();
     };
@@ -34,7 +36,7 @@ export const EventChart = ( { data } ) => {
     const createVerticalAxis = ( svg ) => {
         var y = d3
             .scaleLinear()
-            .domain( [ 0, d3.max( data, ( d ) => d.Traffic ) ] )
+            .domain( [ 0, d3.max( data, ( d ) => d3.max( [ d.Traffic, d.Fire, d.EMS ] ) ) ] )
             .rangeRound( [ height, margin.top ] );
         
         svg.append( "g" )
@@ -195,4 +197,4 @@ export const EventChart = ( { data } ) => {
     );
 };
 
-EventChart.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "date": PropTypes.instanceOf( Date ), "EMS": PropTypes.number, "Fire": PropTypes.number, "Traffic": PropTypes.number } ) ) };
+EventChart.propTypes = { data: PropTypes.arrayOf( PropTypes.shape( { "date": PropTypes.instanceOf( Date ), "EMS": PropTypes.number, "Fire": PropTypes.number, "Traffic": PropTypes.number } ) ), centerDate: PropTypes.instanceOf( Date ) };
