@@ -20,7 +20,7 @@ root.render(
             { "title": "Transition2", "color": "#F0F8FF", "content": <MapToEventTransitionSlide /> },
             { "title": "Events", "color": "#F0F8FF", "content": <EventSlide/> },
             { "title": "Transition3", "color": "#F0F8FF", "content": <EventToTemperatureTransitionSlide /> },
-            { "title": "Temperature", "color": "F0F8FF", "content": <TemperatureSlide/> } 
+            { "title": "Temperature", "color": "#F0F8FF", "content": <TemperatureSlide/> },
         ]}/>
     </React.StrictMode>,
 );
