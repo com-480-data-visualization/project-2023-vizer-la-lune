@@ -3,10 +3,12 @@ import { useD3 } from "../../../../hook/useD3";
 import * as d3 from "d3";
 import "./EventChart.css";
 import PropTypes from "prop-types";
+import _ from "lodash";
 import { Tooltip } from "../../../Tooltip/Tooltip";
-import { fillAndDisplayTootlip, moveTooltip, hideTooltip } from "./utils.js";
+import { fillAndDisplayTootlip, hideTooltip } from "./utils.js";
 
 const COLOR_PER_CALL_TYPE = { "Fire": "#FF9933", "Traffic": "#9B9B9B", "EMS": "#B0E7F5" };
+const EVENT_TYPE = [ "Fire", "EMS", "Traffic" ];
 
 
 export const EventChart = ( { data } ) => {
@@ -41,14 +43,36 @@ export const EventChart = ( { data } ) => {
         return y; 
     };
 
+    const computeSlopeCoefficient = ( yLeft, yRight, xLeft, xRight ) => {
+        const coefficients = {};
+        EVENT_TYPE.forEach( ( eventType ) => {
+            coefficients[eventType] = ( yRight[eventType] - yLeft[eventType] ) / ( xRight - xLeft );
+            
+        } );
+        return coefficients;
+    };
+
+    const moveTooltips = ( x, dataValues, dataPoint, mouseActions ) => {
+        EVENT_TYPE.forEach( ( eventType ) => {
+            const positionForEvent = [ x, dataPoint[eventType] ];
+
+            mouseActions[eventType]["mouseOver"]( dataValues[eventType], eventType, positionForEvent );
+        } );
+    };
+    
+    const clearTooltips = ( mouseActions ) => {
+        EVENT_TYPE.forEach( ( eventType ) => {
+            mouseActions[eventType]["mouseLeave"]();
+        } );
+
+        d3.selectAll( "line" ).remove();
+
+    };
 
     const createMouseActions = ( tooltip ) => {
         return {
-            "mouseOver": ( data, type ) => {
-                fillAndDisplayTootlip( tooltip, data, type );
-            },
-            "mouseMove": ( event ) =>{
-                moveTooltip( tooltip, event, window.innerWidth );
+            "mouseOver": ( data, type, position ) => {
+                fillAndDisplayTootlip( tooltip, data, type, position );
             },
             "mouseLeave": ( ) =>{
                 hideTooltip( tooltip );
@@ -58,10 +82,43 @@ export const EventChart = ( { data } ) => {
 
 
     const plotDataLine = ( svg, x, y, mouseActions, type ) => {
-        const getClosestDataPoint = ( event ) => {
+        const displayTooltips = ( event ) => {
             const dateOfData = x.invert( d3.pointer( event )[0] );
-            const indexOfClosestDataPoint = d3.bisectLeft( dates, dateOfData );
-            return data[indexOfClosestDataPoint][type];
+            const indexOfRightClosestDataPoint = d3.bisectLeft( dates, dateOfData );
+            const valuesOfRightClosestDataPoint = data[indexOfRightClosestDataPoint];
+            const dataValues = _.pick( valuesOfRightClosestDataPoint, EVENT_TYPE );
+            const rightDataPositions = {
+                "Fire": y( dataValues["Fire"] ),
+                "Traffic": y( dataValues["Traffic"] ),
+                "EMS": y( dataValues["EMS"] ) 
+            };
+            var dataPositionToDisplay = rightDataPositions;
+            if ( indexOfRightClosestDataPoint > 0 ){
+                const valuesOfLeftClosestDataPoint = data[indexOfRightClosestDataPoint - 1];
+                const leftDataPositions = { 
+                    "Fire": y( valuesOfLeftClosestDataPoint["Fire"] ),
+                    "Traffic": y( valuesOfLeftClosestDataPoint["Traffic"] ),
+                    "EMS": y( valuesOfLeftClosestDataPoint["EMS"] ) 
+                };
+                const dateLeft = valuesOfLeftClosestDataPoint["date"];
+                const dateRight = valuesOfRightClosestDataPoint["date"];
+                const slopeCoeffs = computeSlopeCoefficient( leftDataPositions, rightDataPositions, dateLeft, dateRight );
+                const correctedDataPositions = {};
+                EVENT_TYPE.forEach( ( eventType ) => {
+                    correctedDataPositions[eventType] = leftDataPositions[eventType] + slopeCoeffs[eventType] * ( d3.pointer( event )[0] - x( dateLeft ) );
+                    
+                } );
+                dataPositionToDisplay = correctedDataPositions;
+            }
+            const minValue = d3.min( EVENT_TYPE.map( eventType => dataPositionToDisplay[eventType] ) );
+            svg.append( "line" )
+                .attr( "x1", d3.pointer( event )[0] + 60 )
+                .attr( "y1", y( 0 ) + 26 )
+                .attr( "x2", d3.pointer( event )[0] + 60 )
+                .attr( "y2", minValue )
+                .attr( "stroke", "black" )
+                .attr( "stroke-dasharray", 5, 5 );
+            moveTooltips( d3.pointer( event )[0] + 60, dataValues, dataPositionToDisplay, mouseActions );
         };
 
         svg.append( "path" )
@@ -71,9 +128,8 @@ export const EventChart = ( { data } ) => {
             .attr( "stroke-width", 5 )
             .attr( "transform", "translate(" + margin.left + ", 0)" )
             .attr( "d", d3.line().x( ( d ) => x( d.date ) ).y( ( d ) => y( d[type] ) ) )
-            .on( "mouseover", ( event ) => mouseActions.mouseOver( getClosestDataPoint( event ), type ) )
-            .on( "mousemove", mouseActions.mouseMove )
-            .on( "mouseout", mouseActions.mouseLeave );
+            .on( "mouseover", ( event ) => displayTooltips( event ) )
+            .on( "mouseleave", ( ) => clearTooltips( mouseActions ) );
 
     };
 
@@ -89,8 +145,13 @@ export const EventChart = ( { data } ) => {
             cleanPage( svg );
             const x = createHorizontalAxis( svg );
             const y = createVerticalAxis( svg );
-            const tooltip = d3.select( "#EventChartToolTip" );
-            const mouseActions = createMouseActions( tooltip );
+            const tooltipFire = d3.select( "#Fire_tooltip" );
+            const tooltipEMS = d3.select( "#EMS_tooltip" );
+            const tooltipTraffic = d3.select( "#Traffic_tooltip" );
+            const fireMouseActions = createMouseActions( tooltipFire );
+            const emsMouseActions = createMouseActions( tooltipEMS );
+            const trafficMouseActions = createMouseActions( tooltipTraffic );
+            const mouseActions = { "Fire": fireMouseActions, "Traffic": trafficMouseActions, "EMS": emsMouseActions };
             plotDataLines( svg, x, y, mouseActions );
         },
         [ data ]
@@ -111,7 +172,9 @@ export const EventChart = ( { data } ) => {
                     <g className="plot-area" />
                 </svg>
             </div>  
-            <Tooltip tooltipId={"EventChartToolTip"}></Tooltip>  
+            <Tooltip tooltipId={"EMS_tooltip"}></Tooltip> 
+            <Tooltip tooltipId={"Fire_tooltip"}></Tooltip>
+            <Tooltip tooltipId={"Traffic_tooltip"}></Tooltip>
         </div>
     );
 };
