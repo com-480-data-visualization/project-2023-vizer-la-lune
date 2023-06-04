@@ -90,6 +90,15 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             .delay( ( d, i ) => { return ( i * 100 );} );
     };
 
+    const plotLegend = ( svg ) => {
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 130 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["Fire"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 130 ).text( "Fire" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 160 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["Traffic"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 160 ).text( "Traffic" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 190 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["EMS"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 190 ).text( "EMS" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+    };
+
     const ref = useD3(
         ( svg ) => {
 
@@ -100,6 +109,7 @@ export const CallsPerTemperatureChart = ( { data } ) => {
             const mouseActions = createMouseActions( tooltip );
             plotDataBars( svg, x, y, mouseActions );
             createAnimationOnBars( svg, y ); 
+            plotLegend( svg );
 
         },
         [ data ]

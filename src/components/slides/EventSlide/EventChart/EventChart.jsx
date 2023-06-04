@@ -143,6 +143,15 @@ export const EventChart = ( { data } ) => {
         plotDataLine( svg, x, y, mouseActions, "EMS" );
     };
 
+    const plotLegend = ( svg ) => {
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 460 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["Fire"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 460 ).text( "Fire" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 480 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["Traffic"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 480 ).text( "Traffic" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+        svg.append( "circle" ).attr( "cx", 1000 ).attr( "cy", 500 ).attr( "r", 6 ).style( "fill", COLOR_PER_CALL_TYPE["EMS"] );
+        svg.append( "text" ).attr( "x", 1020 ).attr( "y", 500 ).text( "EMS" ).style( "font-size", "15px" ).attr( "alignment-baseline", "middle" );
+    };
+
     const ref = useD3(
         ( svg ) => {
             cleanPage( svg );
@@ -158,6 +167,7 @@ export const EventChart = ( { data } ) => {
             const dateMouseActions = createMouseActions( tooltipDate );
             const mouseActions = { "Fire": fireMouseActions, "Traffic": trafficMouseActions, "EMS": emsMouseActions, "date": dateMouseActions };
             plotDataLines( svg, x, y, mouseActions );
+            plotLegend( svg );
         },
         [ data ]
     );
