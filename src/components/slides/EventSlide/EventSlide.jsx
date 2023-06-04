@@ -20,9 +20,8 @@ export const EventSlide = () => {
     }, [] );
 
     const getDataForDisplay = () => {
-        var lol = data.slice( 1, 10 ).map( ( piece ) => {return { "date": new Date( piece.timeStamp ) };} ); 
-        console.log( lol );
-        return data.slice( 1, 10 ).map( ( piece ) => {return { "date": new Date ( piece.timeStamp ), "EMS": parseInt( piece.EMS ), "Fire": parseInt( piece.Fire ), "Traffic": parseInt( piece.Traffic ) };} );
+        const dataToDisplay = data.slice( 1, 10 ).map( ( piece ) => {return { "date": new Date( piece.timeStamp ), "EMS": parseInt( piece.EMS ), "Fire": parseInt( piece.Fire ), "Traffic": parseInt( piece.Traffic ) };} );
+        return dataToDisplay;
     };
 
     return (

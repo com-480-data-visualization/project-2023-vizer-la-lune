@@ -1,33 +1,34 @@
-export const computeTooltipSize = ( content ) => {
-    var size = content.length;
-    var tooltipSize = size * 11 + 40;
-    return tooltipSize;
-};
-
-export const fillAndDisplayTootlip = ( tooltip, data ) =>{
+export const fillAndDisplayTootlip = ( tooltip, data, type, position ) => {
     tooltip.style( "visibility", "visible" ); 
-    console.log( "ISITGOOOD??", data.Traffic );
-    var tooltipSize = computeTooltipSize( "Traffic" );
-    tooltip.html( "Type: Traffic " + "<br/> Calls Count: " + data.Traffic );
-    tooltip.style( "width", tooltipSize + "px" );
-    
+    if ( type == "date" ){
+        fillAndDisplayDateTooltip( tooltip, data, position );
+    } else { 
+        fillAndDisplayEventTooltip( tooltip, data, type, position );
+    } 
 };
 
-const extractWidthFromTooltip = ( tooltip ) => {
-    const regex = /width:\s*([\d.]+)px;/;
-    const match = tooltip.attr( "style" ).match( regex );
-    const widthValue = match[1];
-    return parseInt( widthValue );
+const fillAndDisplayEventTooltip = ( tooltip, data, type, position ) => {
+    tooltip.html( "Type: " + type + "<br/> Calls Count: " + data );
+    if ( type == "EMS" ){
+        //Needed offset, I don't get why EMS is always too high otherwise
+        tooltip.style( "top", ( position[1] - 597 ) + "px" ).style( "left", ( position[0] ) + "px" );
+    } else {
+        tooltip.style( "top", ( position[1] - 700 ) + "px" ).style( "left", ( position[0] ) + "px" );
+    }
+    tooltip.style( "width", "140px" );
+    tooltip.style( "height", "30px" );
 };
 
-export const moveTooltip = ( tooltip, event, windowSize ) => {
-    
-    const tooltipWidth = extractWidthFromTooltip( tooltip );
-    const doesTooltipExceedsWindow = windowSize - 250 < event.pageX - 160 + tooltipWidth;
-    if ( doesTooltipExceedsWindow ){
-        const additionalOffset = event.pageX - 160 + tooltipWidth - ( windowSize - 250 );
-        tooltip.style( "top", ( event.pageY - 790 ) + "px" ).style( "left", ( event.pageX - 160 - additionalOffset ) + "px" );
-    } else {tooltip.style( "top", ( event.pageY - 790 ) + "px" ).style( "left", ( event.pageX - 160 ) + "px" );}
+const fillAndDisplayDateTooltip = ( tooltip, date, position ) => {
+    tooltip.html( date.toDateString() );
+    tooltip.style( "top", ( position[1] - 700 ) + "px" ).style( "left", ( position[0] - 150 ) + "px" );
+    tooltip.style( "width", "100px" );
+    tooltip.style( "height", "30px" );
+    //Overwritting css props does not work in css so we do it here
+    tooltip.style( "background-color", "rgba(0,0,0,0)" );
+    tooltip.style( "border-width", "0px" );
+    tooltip.style( "font-weight", "bold" );
+    tooltip.style( "text-align", "center" );
 };
 
 
