@@ -23,6 +23,13 @@ Link to [Milestone 2](https://github.com/com-480-data-visualization/project-2023
 - First visualization ideas and sketches
 - Tools needed to achieve the visualization
 
+### Milestone 3
+Link to [Milestone 3]()
+
+- Final website
+- Process book of documenting the journey of designing our website
+- Sreencast of our website
+
 ## Setup
 ### Required installation
 First install Node.js on your computer from [official node.js website](https://nodejs.org/en/download)
