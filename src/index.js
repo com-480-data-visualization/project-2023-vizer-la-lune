@@ -15,11 +15,11 @@ root.render(
     <React.StrictMode>
         <FullPage slides={[ 
             { "title": "Intro", "color": "#000000", "content": <IntroductionSlide /> },
-            { "title": "Transition1", "color": "#F0F8FF", "content": <IntroToMapTransitionSlide /> },
+            { "title": "Transition Map", "color": "#F0F8FF", "content": <IntroToMapTransitionSlide /> },
             { "title": "Map", "color": "#F0F8FF", "content": <GlobalMapSlide/> },
-            { "title": "Transition2", "color": "#F0F8FF", "content": <MapToEventTransitionSlide /> },
+            { "title": "Transition Event", "color": "#F0F8FF", "content": <MapToEventTransitionSlide /> },
             { "title": "Events", "color": "#F0F8FF", "content": <EventSlide/> },
-            { "title": "Transition3", "color": "#F0F8FF", "content": <EventToTemperatureTransitionSlide /> },
+            { "title": "Transition Temperature", "color": "#F0F8FF", "content": <EventToTemperatureTransitionSlide /> },
             { "title": "Temperature", "color": "#F0F8FF", "content": <TemperatureSlide/> },
         ]}/>
     </React.StrictMode>,
