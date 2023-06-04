@@ -24,7 +24,7 @@ Link to [Milestone 2](https://github.com/com-480-data-visualization/project-2023
 - Tools needed to achieve the visualization
 
 ### Milestone 3
-Link to [Milestone 3]()
+Link to [Milestone 3](https://github.com/com-480-data-visualization/project-2023-vizer-la-lune/tree/master/milestones/milestone_3)
 
 - Final website
 - Process book of documenting the journey of designing our website
