@@ -37,7 +37,6 @@ export const IntroductionSlide = () => {
 
     const getDataForTodayDate = () => {
         const todayMonthAndDay = today.format( "MM-DD" );
-        console.log( todayMonthAndDay );
         const onlyDataCorrespondingToToday = data.filter( d => {return d.timeStamp.substr( 5 ) == todayMonthAndDay ;} );
 
         if ( onlyDataCorrespondingToToday.length == 0 ){

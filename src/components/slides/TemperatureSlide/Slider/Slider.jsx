@@ -19,7 +19,6 @@ export const Slider = ( { minValue, maxValue, callBack, baseValue } ) => {
     };
     const updateCurrentValueDisplayPosition = () => {
         const newPosition = 100 * ( temperature - minValue ) / ( maxValue - minValue );
-        console.log( currentValueDisplay.current.style.width );
         currentValueDisplay.current.style.marginLeft = "calc(" + newPosition + "% - 15px)" ;
     };
 

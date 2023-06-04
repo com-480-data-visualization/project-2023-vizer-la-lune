@@ -5,7 +5,6 @@ import "./GlobalMapYearButton.css";
 export const GlobalMapYearButton = ( { year, selectedYear, onYearButtonClick } ) => {
     const handleClick = () => {
         onYearButtonClick( year );
-        console.log( year );
     };
 
     return (

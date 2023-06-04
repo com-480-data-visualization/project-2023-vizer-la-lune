@@ -119,12 +119,9 @@ export const GlobalMapSlide = () => {
         // if selectedTownship is not "All", filter data by selectedTownship
         if ( township !== "All" ) {
             filteredData = filteredData.filter( ( item ) => item.twp === township );
-            console.log( township );
         }
 
         filteredData = filteredData.filter( ( item ) => item.month === month );
-
-        console.log( filteredData.length );
         // Group data by zip codes and count calls per zip code
         const groupedData = _.groupBy( filteredData, "zip" );
         const callsPerZipLocal = _.mapValues( groupedData, "length" );//Nom de var a changer
