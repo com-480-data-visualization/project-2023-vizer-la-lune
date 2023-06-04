@@ -13,14 +13,25 @@ export const EventSlide = () => {
     const [ centerDate, setCenterDate ] = useState( new Date( "2016-02-21" ) );
       
     const handleDateChange = ( event ) => {
-        console.log( event.target.value );
+        const newCenterDate = new Date( event.target.value );
         setCenterDate( new Date( event.target.value ) );
-        const newLeftDate = new Date( centerDate.getTime() );
+        const newLeftDate = new Date( newCenterDate.getTime() );
         newLeftDate.setDate( newLeftDate.getDate() - 7 );
         setLeftDate( newLeftDate );
-        const newRightDate = new Date( centerDate.getTime() );
+        const newCenterDate2 = new Date( event.target.value );
+        const newRightDate = new Date( newCenterDate2.getTime() );
         newRightDate.setDate( newRightDate.getDate() + 7 );
         setRightDate( newRightDate );
+    };
+
+    const formatDate = ( date ) => {
+        if ( date ){
+            const year = date.getFullYear();
+            const month = String( date.getMonth() + 1 ).padStart( 2, "0" );
+            const day = String( date.getDate() ).padStart( 2, "0" );
+            return `${year}-${month}-${day}`;
+        }
+        return "2016-098-07";
     };
       
 
@@ -56,6 +67,7 @@ export const EventSlide = () => {
     }, [ leftDate, rightDate ] );
 
     const handleZoomIn = ( date ) => {
+        setCenterDate( date );
         const newLeftDate = new Date( date.getTime() );
         newLeftDate.setDate( newLeftDate.getDate() - 7 );
         setLeftDate( newLeftDate );
@@ -77,14 +89,14 @@ export const EventSlide = () => {
     return (
         <Slide title= "Event Slide">
             <div className="temporary_content">
-                <EventChart data={dataToDisplay} centerDate={leftDate} />
+                <EventChart data={dataToDisplay} />
                 <div className="controls">
                     <div className="buttons">
                         <button onClick = {()=>{handleZoomIn( new Date( "2018-03-04" ) );}}> Natural disaster (storm)</button>
                         <button onClick = {()=>{handleZoomIn( new Date( "2018-01-01" ) );}}> New year</button>
                         <button onClick = {()=>{handleZoomIn( new Date( "2017-02-05" ) );}}> SuperBowl 2017)</button>
                     </div>
-                    <input type="date"value={"2017-06-15"} onChange={handleDateChange} />
+                    <input type="date" value={ formatDate( centerDate ) } onChange={handleDateChange} min ="2016-01-01" max ="2020-06-01" />
                 </div>
                 
             </div></Slide>
