@@ -58,13 +58,16 @@ export const EventChart = ( { data } ) => {
 
             mouseActions[eventType]["mouseOver"]( dataValues[eventType], eventType, positionForEvent );
         } );
+        const datePosition = [ x, 150 ];
+        mouseActions["date"]["mouseOver"]( dataValues["date"], "date", datePosition );
+
     };
     
     const clearTooltips = ( mouseActions ) => {
         EVENT_TYPE.forEach( ( eventType ) => {
             mouseActions[eventType]["mouseLeave"]();
         } );
-
+        mouseActions["date"]["mouseLeave"]();
         d3.selectAll( "line" ).remove();
 
     };
@@ -86,7 +89,7 @@ export const EventChart = ( { data } ) => {
             const dateOfData = x.invert( d3.pointer( event )[0] );
             const indexOfRightClosestDataPoint = d3.bisectLeft( dates, dateOfData );
             const valuesOfRightClosestDataPoint = data[indexOfRightClosestDataPoint];
-            const dataValues = _.pick( valuesOfRightClosestDataPoint, EVENT_TYPE );
+            const dataValues = _.pick( valuesOfRightClosestDataPoint, [ ...EVENT_TYPE, "date" ] );
             const rightDataPositions = {
                 "Fire": y( dataValues["Fire"] ),
                 "Traffic": y( dataValues["Traffic"] ),
@@ -148,10 +151,12 @@ export const EventChart = ( { data } ) => {
             const tooltipFire = d3.select( "#Fire_tooltip" );
             const tooltipEMS = d3.select( "#EMS_tooltip" );
             const tooltipTraffic = d3.select( "#Traffic_tooltip" );
+            const tooltipDate = d3.select( "#date_tooltip" );
             const fireMouseActions = createMouseActions( tooltipFire );
             const emsMouseActions = createMouseActions( tooltipEMS );
             const trafficMouseActions = createMouseActions( tooltipTraffic );
-            const mouseActions = { "Fire": fireMouseActions, "Traffic": trafficMouseActions, "EMS": emsMouseActions };
+            const dateMouseActions = createMouseActions( tooltipDate );
+            const mouseActions = { "Fire": fireMouseActions, "Traffic": trafficMouseActions, "EMS": emsMouseActions, "date": dateMouseActions };
             plotDataLines( svg, x, y, mouseActions );
         },
         [ data ]
@@ -172,9 +177,10 @@ export const EventChart = ( { data } ) => {
                     <g className="plot-area" />
                 </svg>
             </div>  
-            <Tooltip tooltipId={"EMS_tooltip"}></Tooltip> 
-            <Tooltip tooltipId={"Fire_tooltip"}></Tooltip>
-            <Tooltip tooltipId={"Traffic_tooltip"}></Tooltip>
+            <Tooltip tooltipId={"EMS_tooltip"} className="tooltip_event_chart"></Tooltip> 
+            <Tooltip tooltipId={"Fire_tooltip"} className="tooltip_event_chart"></Tooltip>
+            <Tooltip tooltipId={"Traffic_tooltip"} className="tooltip_event_chart"></Tooltip>
+            <Tooltip tooltipId={"date_tooltip"} className="tooltip_event_chart"></Tooltip>
         </div>
     );
 };
