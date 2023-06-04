@@ -25,7 +25,7 @@ export const EventSlide = () => {
     };
 
     return (
-        <Slide title= "Event Slide">
+        <Slide title= "Event Chart">
             <div className="temporary_content"><EventChart data = { getDataForDisplay() }/></div></Slide>
     );
 };

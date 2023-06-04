@@ -150,7 +150,7 @@ export const GlobalMapSlide = () => {
     };
     
     return (
-        <Slide title = "Global Map">
+        <Slide title = "Montgomery County PA Map">
             <div className="global-map-year-buttons-container">
                 <div className="global-map-year-buttons">
                     {availableYears.map( ( year ) => (

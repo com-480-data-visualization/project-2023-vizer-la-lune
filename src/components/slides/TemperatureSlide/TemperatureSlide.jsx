@@ -39,7 +39,7 @@ export const TemperatureSlide = () => {
         setDataToDisplay( temperatureData.slice( 1, 10 ) );
     };
     return (
-        <Slide title="Temperature Slide">
+        <Slide title="Temperature Chart">
             <div className="temperature_slide_content">
                 <CallsPerTemperatureChart data={dataToDisplay} />
                 <Slider minValue={MIN_TEMPERATURE} maxValue={MAX_TEMPERATURE} baseValue={BASE_VALUE} callBack={changeData} />
