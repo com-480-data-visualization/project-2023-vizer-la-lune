@@ -27,7 +27,7 @@ Link to [Milestone 2](https://github.com/com-480-data-visualization/project-2023
 Link to [Milestone 3](https://github.com/com-480-data-visualization/project-2023-vizer-la-lune/tree/master/milestones/milestone_3)
 
 - Final website
-- Process book of documenting the journey of designing our website
+- [Process book](https://github.com/com-480-data-visualization/project-2023-vizer-la-lune/blob/master/milestones/milestone_3/Final%20report%20(1).pdf) of documenting the journey of designing our website
 - Sreencast of our website
 
 ## Setup
