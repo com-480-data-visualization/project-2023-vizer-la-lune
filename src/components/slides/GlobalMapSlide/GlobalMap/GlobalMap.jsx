@@ -76,7 +76,6 @@ export const GlobalMap = ( { geoJsonData, data } ) => {
     function onEachFeature( feature, layer ) {
         const zip = feature.properties.ZCTA5CE10;
         const count = feature.properties.calls;
-        console.log( count );
         layer.bindPopup( `Zip Code: ${zip}<br>Call Count: ${count}` );
     }
 
